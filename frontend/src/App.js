@@ -11,8 +11,6 @@ import {
   ChevronDown,
   ChevronUp,
   ExternalLink,
-  Smartphone,
-  Code2,
   Rocket,
   Users,
   Zap,
@@ -20,7 +18,26 @@ import {
 } from 'lucide-react';
 import './App.css';
 
-// Animated concentric circles component
+// React Native Icon (actual logo)
+const ReactNativeIcon = ({ className }) => (
+  <svg viewBox="-11.5 -10.23174 23 20.46348" className={className}>
+    <circle cx="0" cy="0" r="2.05" fill="#61dafb"/>
+    <g stroke="#61dafb" strokeWidth="1" fill="none">
+      <ellipse rx="11" ry="4.2"/>
+      <ellipse rx="11" ry="4.2" transform="rotate(60)"/>
+      <ellipse rx="11" ry="4.2" transform="rotate(120)"/>
+    </g>
+  </svg>
+);
+
+// Expo Icon (actual logo)
+const ExpoIcon = ({ className }) => (
+  <svg viewBox="0 0 24 24" className={className} fill="white">
+    <path d="M12 0C5.372 0 0 5.372 0 12s5.372 12 12 12 12-5.372 12-12S18.628 0 12 0zm-.455 4.5l6.818 13.636H5.091L11.545 4.5zm.91 0l6.818 13.636h-.001L12.455 4.5z"/>
+  </svg>
+);
+
+// Animated concentric circles component with actual logos
 const ConcentricCircles = () => (
   <div className="hero-graphic mx-auto">
     <div className="concentric-circle"></div>
@@ -29,19 +46,19 @@ const ConcentricCircles = () => (
     <div className="concentric-circle"></div>
     <div className="logo-container">
       <motion.div 
-        className="w-16 h-16 rounded-xl bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center"
-        animate={{ rotate: [0, 360] }}
-        transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
+        className="w-14 h-14 md:w-16 md:h-16 rounded-xl bg-gradient-to-br from-[#61dafb]/20 to-[#61dafb]/10 flex items-center justify-center backdrop-blur-sm border border-[#61dafb]/30"
+        animate={{ y: [0, -8, 0] }}
+        transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
       >
-        <Code2 className="w-8 h-8 text-white" />
+        <ReactNativeIcon className="w-10 h-10 md:w-12 md:h-12" />
       </motion.div>
-      <div className="text-white text-3xl font-bold">+</div>
+      <div className="text-white/60 text-2xl md:text-3xl font-light mx-2">+</div>
       <motion.div 
-        className="w-16 h-16 rounded-xl bg-gradient-to-br from-cyan-400 to-blue-500 flex items-center justify-center"
-        animate={{ rotate: [360, 0] }}
-        transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
+        className="w-14 h-14 md:w-16 md:h-16 rounded-xl bg-gradient-to-br from-white/20 to-white/5 flex items-center justify-center backdrop-blur-sm border border-white/20"
+        animate={{ y: [0, 8, 0] }}
+        transition={{ duration: 3, repeat: Infinity, ease: "easeInOut", delay: 0.5 }}
       >
-        <Smartphone className="w-8 h-8 text-white" />
+        <ExpoIcon className="w-8 h-8 md:w-10 md:h-10" />
       </motion.div>
     </div>
   </div>
