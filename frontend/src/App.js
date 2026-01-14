@@ -289,7 +289,7 @@ function App() {
             ))}
           </nav>
 
-          {/* Right side - Mobile: small CTA + menu, Desktop: large CTA */}
+          {/* Right side buttons */}
           <div className="flex items-center gap-2 flex-shrink-0">
             {/* Mobile CTA button - smaller */}
             <button 
@@ -309,19 +309,19 @@ function App() {
             >
               {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
             </button>
-          </div>
 
-          {/* CTA button desktop only - completely hidden on mobile */}
-          <motion.button 
-            className="!hidden md:!inline-flex cta-button"
-            onClick={() => setShowModal(true)}
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-            data-testid="header-cta-btn"
-          >
-            <ArrowRight className="w-5 h-5" />
-            Book a discovery call
-          </motion.button>
+            {/* CTA button desktop only */}
+            <motion.button 
+              className="cta-button desktop-only-cta"
+              onClick={() => setShowModal(true)}
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              data-testid="header-cta-btn"
+            >
+              <ArrowRight className="w-5 h-5" />
+              Book a discovery call
+            </motion.button>
+          </div>
         </div>
 
         {/* Mobile menu */}
