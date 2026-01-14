@@ -262,17 +262,17 @@ function App() {
       <div className="noise-overlay"></div>
 
       {/* Top header */}
-      <header className="fixed top-0 left-0 right-0 z-50 glass">
-        <div className="max-w-7xl mx-auto px-4 py-3 flex items-center justify-between">
+      <header className="fixed top-0 left-0 right-0 z-50 glass overflow-hidden">
+        <div className="max-w-7xl mx-auto px-3 py-3 flex items-center justify-between">
           <motion.div 
-            className="flex items-center gap-2"
+            className="flex items-center gap-2 flex-shrink-0"
             initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
           >
-            <div className="w-8 h-8 md:w-10 md:h-10 rounded-lg bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center">
-              <span className="text-white font-bold text-sm md:text-lg">A</span>
+            <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center flex-shrink-0">
+              <span className="text-white font-bold text-sm">A</span>
             </div>
-            <span className="text-white font-semibold text-lg md:text-xl">App&Flow</span>
+            <span className="text-white font-semibold text-base md:text-xl">App&Flow</span>
           </motion.div>
 
           {/* Desktop nav */}
@@ -290,7 +290,7 @@ function App() {
           </nav>
 
           {/* Right side - Mobile: small CTA + menu, Desktop: large CTA */}
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-2 flex-shrink-0">
             {/* Mobile CTA button - smaller */}
             <button 
               className="md:hidden cta-button-mobile"
