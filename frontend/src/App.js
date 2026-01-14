@@ -437,28 +437,53 @@ function App() {
             <span className="text-gray-600 text-sm">(that we can talk about)</span>
           </div>
 
-          <div className="grid md:grid-cols-3 gap-6">
-            {workInProgress.map((project, index) => (
-              <motion.div
-                key={project.id}
-                className="work-card in-progress"
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: index * 0.1 }}
-                data-testid={`work-progress-card-${project.id}`}
-              >
-                <div className="flex items-start justify-between mb-4">
-                  <span className="text-4xl">{project.logo}</span>
-                  <span className="flex items-center gap-2 text-green-400 text-sm">
-                    <span className="status-indicator"></span>
-                    {project.status}
-                  </span>
-                </div>
-                <h3 className="text-xl font-semibold text-white mb-2">{project.name}</h3>
-                <p className="text-gray-400">{project.description}</p>
-              </motion.div>
-            ))}
+          {/* Single transitioning card */}
+          <div className="max-w-md">
+            <div className="work-card in-progress relative overflow-hidden" data-testid="work-progress-card">
+              <AnimatePresence mode="wait">
+                <motion.div
+                  key={currentProjectIndex}
+                  initial={{ opacity: 0, x: 20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  exit={{ opacity: 0, x: -20 }}
+                  transition={{ duration: 0.5, ease: "easeInOut" }}
+                >
+                  <div className="flex items-start justify-between mb-4">
+                    {/* App-style logo with rounded corners */}
+                    <AppLogo 
+                      colors={workInProgress[currentProjectIndex].colors} 
+                      icon={workInProgress[currentProjectIndex].icon} 
+                    />
+                    <span className="flex items-center gap-2 text-green-400 text-sm font-medium">
+                      <span className="breathing-dot"></span>
+                      {workInProgress[currentProjectIndex].status}
+                    </span>
+                  </div>
+                  <h3 className="text-xl font-semibold text-white mb-2">
+                    {workInProgress[currentProjectIndex].name}
+                  </h3>
+                  <p className="text-gray-400">
+                    {workInProgress[currentProjectIndex].description}
+                  </p>
+                </motion.div>
+              </AnimatePresence>
+
+              {/* Progress dots */}
+              <div className="flex gap-2 mt-6">
+                {workInProgress.map((_, index) => (
+                  <button
+                    key={index}
+                    onClick={() => setCurrentProjectIndex(index)}
+                    className={`w-2 h-2 rounded-full transition-all duration-300 ${
+                      index === currentProjectIndex 
+                        ? 'bg-green-400 w-6' 
+                        : 'bg-gray-600 hover:bg-gray-500'
+                    }`}
+                    data-testid={`progress-dot-${index}`}
+                  />
+                ))}
+              </div>
+            </div>
           </div>
         </div>
       </section>
