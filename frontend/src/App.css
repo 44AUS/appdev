@@ -171,6 +171,17 @@
   transform: translateX(5px);
 }
 
+/* Desktop only CTA - hidden on mobile */
+.desktop-only-cta {
+  display: none !important;
+}
+
+@media (min-width: 768px) {
+  .desktop-only-cta {
+    display: inline-flex !important;
+  }
+}
+
 /* Mobile CTA Button - Compact */
 .cta-button-mobile {
   display: inline-flex;
