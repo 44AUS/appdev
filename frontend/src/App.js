@@ -346,11 +346,11 @@ function App() {
                   </button>
                 ))}
                 <button 
-                  className="cta-button w-full justify-center mt-4"
+                  className="secondary-button w-full justify-center mt-4 text-sm"
                   onClick={() => { setShowModal(true); setMobileMenuOpen(false); }}
                   data-testid="mobile-cta-btn"
                 >
-                  <ArrowRight className="w-5 h-5" />
+                  <ArrowRight className="w-4 h-4" />
                   Book a discovery call
                 </button>
               </div>
