@@ -311,9 +311,9 @@ function App() {
             </button>
           </div>
 
-          {/* CTA button desktop only - outside the flex container */}
+          {/* CTA button desktop only - completely hidden on mobile */}
           <motion.button 
-            className="hidden md:inline-flex cta-button"
+            className="!hidden md:!inline-flex cta-button"
             onClick={() => setShowModal(true)}
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
