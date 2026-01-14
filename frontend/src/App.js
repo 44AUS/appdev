@@ -16,12 +16,9 @@ import {
   Rocket,
   Users,
   Zap,
-  Shield,
   Globe
 } from 'lucide-react';
 import './App.css';
-
-const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
 
 // Animated concentric circles component
 const ConcentricCircles = () => (
