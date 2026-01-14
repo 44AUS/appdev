@@ -292,15 +292,14 @@ function App() {
           {/* Right side - Mobile: small CTA + menu, Desktop: large CTA */}
           <div className="flex items-center gap-2">
             {/* Mobile CTA button - smaller */}
-            <motion.button 
+            <button 
               className="md:hidden cta-button-mobile"
               onClick={() => setShowModal(true)}
-              whileTap={{ scale: 0.95 }}
               data-testid="mobile-header-cta-btn"
             >
-              <ArrowRight className="w-4 h-4" />
-              <span className="text-xs">Book a call</span>
-            </motion.button>
+              <ArrowRight className="w-3 h-3" />
+              <span className="text-xs whitespace-nowrap">Book a call</span>
+            </button>
 
             {/* Mobile menu button */}
             <button 
@@ -311,9 +310,9 @@ function App() {
               {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
             </button>
 
-            {/* CTA button desktop */}
+            {/* CTA button desktop only */}
             <motion.button 
-              className="hidden md:flex cta-button"
+              className="hidden md:inline-flex cta-button"
               onClick={() => setShowModal(true)}
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
