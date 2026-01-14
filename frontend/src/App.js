@@ -234,6 +234,7 @@ function App() {
   const [showAllWork, setShowAllWork] = useState(false);
   const [activeSection, setActiveSection] = useState('home');
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [currentProjectIndex, setCurrentProjectIndex] = useState(0);
   
   const sectionsRef = {
     home: useRef(null),
@@ -242,6 +243,14 @@ function App() {
     expertise: useRef(null),
     about: useRef(null)
   };
+
+  // Auto-rotate work in progress projects
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentProjectIndex((prev) => (prev + 1) % workInProgress.length);
+    }, 4000); // Change every 4 seconds
+    return () => clearInterval(interval);
+  }, []);
 
   // Scroll observer
   useEffect(() => {
