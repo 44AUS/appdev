@@ -39,35 +39,40 @@
 
 .concentric-circle {
   position: absolute;
-  border: 1px solid rgba(59, 130, 246, 0.2);
+  border: 2px solid rgba(59, 130, 246, 0.3);
   border-radius: 50%;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
+  box-shadow: 0 0 20px rgba(59, 130, 246, 0.1), inset 0 0 20px rgba(59, 130, 246, 0.05);
 }
 
 .concentric-circle:nth-child(1) {
   width: 100%;
   height: 100%;
   animation: pulse-ring 4s ease-in-out infinite;
+  border-color: rgba(59, 130, 246, 0.15);
 }
 
 .concentric-circle:nth-child(2) {
   width: 80%;
   height: 80%;
   animation: pulse-ring 4s ease-in-out infinite 0.5s;
+  border-color: rgba(59, 130, 246, 0.2);
 }
 
 .concentric-circle:nth-child(3) {
   width: 60%;
   height: 60%;
   animation: pulse-ring 4s ease-in-out infinite 1s;
+  border-color: rgba(59, 130, 246, 0.25);
 }
 
 .concentric-circle:nth-child(4) {
   width: 40%;
   height: 40%;
   animation: pulse-ring 4s ease-in-out infinite 1.5s;
+  border-color: rgba(59, 130, 246, 0.3);
 }
 
 /* Logo container in hero */
