@@ -309,19 +309,19 @@ function App() {
             >
               {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
             </button>
-
-            {/* CTA button desktop only */}
-            <motion.button 
-              className="hidden md:inline-flex cta-button"
-              onClick={() => setShowModal(true)}
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              data-testid="header-cta-btn"
-            >
-              <ArrowRight className="w-5 h-5" />
-              Book a discovery call
-            </motion.button>
           </div>
+
+          {/* CTA button desktop only - outside the flex container */}
+          <motion.button 
+            className="hidden md:inline-flex cta-button"
+            onClick={() => setShowModal(true)}
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            data-testid="header-cta-btn"
+          >
+            <ArrowRight className="w-5 h-5" />
+            Book a discovery call
+          </motion.button>
         </div>
 
         {/* Mobile menu */}
