@@ -64,28 +64,41 @@ const ConcentricCircles = () => (
   </div>
 );
 
-// Work in progress data
+// App Logo Component - Rounded corners like real app icons
+const AppLogo = ({ colors, icon: Icon }) => (
+  <div 
+    className="w-14 h-14 rounded-2xl flex items-center justify-center shadow-lg"
+    style={{ background: `linear-gradient(135deg, ${colors[0]}, ${colors[1]})` }}
+  >
+    <Icon className="w-7 h-7 text-white" />
+  </div>
+);
+
+// Work in progress data with app-style icons
 const workInProgress = [
   {
     id: 1,
     name: "TechFlow AI",
     description: "Building next-gen AI-powered productivity platform",
     status: "Currently",
-    logo: "🤖"
+    colors: ["#8B5CF6", "#6366F1"],
+    icon: Zap
   },
   {
     id: 2,
     name: "HealthSync",
     description: "Healthcare management app with real-time sync",
-    status: "Currently",
-    logo: "🏥"
+    status: "Currently", 
+    colors: ["#10B981", "#059669"],
+    icon: Users
   },
   {
     id: 3,
     name: "EcoTrack",
     description: "Sustainability tracking for enterprise clients",
     status: "Currently",
-    logo: "🌱"
+    colors: ["#3B82F6", "#2563EB"],
+    icon: Globe
   }
 ];
 
