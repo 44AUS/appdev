@@ -126,38 +126,15 @@ const teamMembers = [
   { name: "Lisa", avatar: "👩‍💻" }
 ];
 
-// Discovery Call Modal
+// Discovery Call Modal - Opens email client
 const DiscoveryModal = ({ isOpen, onClose }) => {
-  const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    company: '',
-    project_type: '',
-    message: ''
-  });
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [submitStatus, setSubmitStatus] = useState(null);
+  const handleEmailClick = () => {
+    window.location.href = 'mailto:hello@appandflow.com?subject=Discovery%20Call%20Request&body=Hi%20App%26Flow%20Team,%0A%0AI%27d%20like%20to%20schedule%20a%20discovery%20call%20to%20discuss%20my%20project.%0A%0AProject%20Type:%0ACompany:%0ABrief%20Description:%0A%0AThanks!';
+  };
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    setIsSubmitting(true);
-    try {
-      const response = await fetch(`${BACKEND_URL}/api/discovery-call`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(formData)
-      });
-      const data = await response.json();
-      setSubmitStatus({ success: true, message: data.message });
-      setTimeout(() => {
-        onClose();
-        setSubmitStatus(null);
-        setFormData({ name: '', email: '', company: '', project_type: '', message: '' });
-      }, 2000);
-    } catch (error) {
-      setSubmitStatus({ success: false, message: 'Something went wrong. Please try again.' });
-    }
-    setIsSubmitting(false);
+  const handleCalendlyClick = () => {
+    // Opens calendly or any scheduling link - replace with actual link
+    window.open('https://calendly.com/appandflow', '_blank');
   };
 
   if (!isOpen) return null;
@@ -185,68 +162,36 @@ const DiscoveryModal = ({ isOpen, onClose }) => {
             </button>
           </div>
 
-          {submitStatus ? (
-            <div className={`p-4 rounded-lg ${submitStatus.success ? 'bg-green-500/20 text-green-400' : 'bg-red-500/20 text-red-400'}`}>
-              {submitStatus.message}
-            </div>
-          ) : (
-            <form onSubmit={handleSubmit} className="space-y-4">
-              <input
-                type="text"
-                placeholder="Your Name *"
-                className="form-input"
-                value={formData.name}
-                onChange={e => setFormData({...formData, name: e.target.value})}
-                required
-                data-testid="discovery-name-input"
-              />
-              <input
-                type="email"
-                placeholder="Email Address *"
-                className="form-input"
-                value={formData.email}
-                onChange={e => setFormData({...formData, email: e.target.value})}
-                required
-                data-testid="discovery-email-input"
-              />
-              <input
-                type="text"
-                placeholder="Company (optional)"
-                className="form-input"
-                value={formData.company}
-                onChange={e => setFormData({...formData, company: e.target.value})}
-                data-testid="discovery-company-input"
-              />
-              <select
-                className="form-input"
-                value={formData.project_type}
-                onChange={e => setFormData({...formData, project_type: e.target.value})}
-                data-testid="discovery-project-type-select"
-              >
-                <option value="">Select Project Type</option>
-                <option value="new-app">New App Development</option>
-                <option value="audit">Performance Audit</option>
-                <option value="team">Team Augmentation</option>
-                <option value="other">Other</option>
-              </select>
-              <textarea
-                placeholder="Tell us about your project..."
-                className="form-input min-h-[120px] resize-none"
-                value={formData.message}
-                onChange={e => setFormData({...formData, message: e.target.value})}
-                data-testid="discovery-message-input"
-              />
-              <button 
-                type="submit" 
-                className="cta-button w-full justify-center"
-                disabled={isSubmitting}
-                data-testid="discovery-submit-btn"
-              >
-                {isSubmitting ? 'Sending...' : 'Schedule Call'}
-                <ArrowRight className="w-5 h-5" />
-              </button>
-            </form>
-          )}
+          <p className="text-gray-400 mb-6">
+            Let's discuss your project! Choose how you'd like to get in touch:
+          </p>
+
+          <div className="space-y-4">
+            <button 
+              onClick={handleEmailClick}
+              className="cta-button w-full justify-center"
+              data-testid="email-cta-btn"
+            >
+              <Mail className="w-5 h-5" />
+              Send us an Email
+            </button>
+            
+            <button 
+              onClick={handleCalendlyClick}
+              className="secondary-button w-full justify-center"
+              data-testid="calendly-cta-btn"
+            >
+              <ExternalLink className="w-5 h-5" />
+              Schedule on Calendly
+            </button>
+          </div>
+
+          <div className="mt-6 pt-6 border-t border-white/10 text-center">
+            <p className="text-gray-500 text-sm mb-2">Or reach us directly at:</p>
+            <a href="mailto:hello@appandflow.com" className="text-blue-400 hover:text-blue-300 transition-colors">
+              hello@appandflow.com
+            </a>
+          </div>
         </motion.div>
       </motion.div>
     </AnimatePresence>
