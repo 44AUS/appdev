@@ -522,59 +522,68 @@ function App() {
 
       {/* Work in Progress Section */}
       <section className="py-20 px-4" data-testid="work-in-progress-section">
-        <div className="max-w-7xl mx-auto">
+        <div className="max-w-5xl mx-auto">
           <div className="section-header">
             <span className="section-hash">#</span>
             <h2 className="section-title">Work in Progress</h2>
             <span className="text-gray-600 text-sm">(that we can talk about)</span>
           </div>
 
-          {/* Single transitioning card */}
-          <div className="max-w-md">
-            <div className="work-card in-progress relative overflow-hidden" data-testid="work-progress-card">
-              <AnimatePresence mode="wait">
-                <motion.div
-                  key={currentProjectIndex}
-                  initial={{ opacity: 0, x: 20 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  exit={{ opacity: 0, x: -20 }}
-                  transition={{ duration: 0.5, ease: "easeInOut" }}
-                >
-                  <div className="flex items-start justify-between mb-4">
-                    {/* App-style logo with rounded corners */}
-                    <AppLogo 
-                      colors={workInProgress[currentProjectIndex].colors} 
-                      icon={workInProgress[currentProjectIndex].icon} 
-                    />
-                    <span className="flex items-center gap-2 text-green-400 text-sm font-medium">
-                      <span className="breathing-dot"></span>
-                      {workInProgress[currentProjectIndex].status}
-                    </span>
+          {/* Large transitioning card */}
+          <div className="wip-card" data-testid="work-progress-card">
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={currentProjectIndex}
+                className="wip-card-inner"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                transition={{ duration: 0.6, ease: "easeInOut" }}
+              >
+                {/* Large App Icon */}
+                <div className="wip-icon-container">
+                  {workInProgress[currentProjectIndex].iconType === 'rainbow' && (
+                    <div className="wip-icon wip-icon-rainbow">
+                      <div className="rainbow-arc"></div>
+                    </div>
+                  )}
+                  {workInProgress[currentProjectIndex].iconType === 'expo' && (
+                    <div className="wip-icon wip-icon-expo">
+                      <svg viewBox="0 0 24 24" className="w-16 h-16" fill="white">
+                        <path d="M12 2L2 19h20L12 2z"/>
+                      </svg>
+                    </div>
+                  )}
+                  {workInProgress[currentProjectIndex].iconType === 'swoogo' && (
+                    <div className="wip-icon wip-icon-swoogo">
+                      <span className="text-white font-bold text-2xl">go</span>
+                    </div>
+                  )}
+                </div>
+
+                {/* Content */}
+                <div className="wip-content">
+                  <div className="wip-status">
+                    <span className="breathing-dot"></span>
+                    <span className="wip-status-text">{workInProgress[currentProjectIndex].status}</span>
                   </div>
-                  <h3 className="text-xl font-semibold text-white mb-2">
-                    {workInProgress[currentProjectIndex].name}
-                  </h3>
-                  <p className="text-gray-400">
+                  <p className="wip-description">
                     {workInProgress[currentProjectIndex].description}
                   </p>
-                </motion.div>
-              </AnimatePresence>
+                </div>
+              </motion.div>
+            </AnimatePresence>
 
-              {/* Progress dots */}
-              <div className="flex gap-2 mt-6">
-                {workInProgress.map((_, index) => (
-                  <button
-                    key={index}
-                    onClick={() => setCurrentProjectIndex(index)}
-                    className={`w-2 h-2 rounded-full transition-all duration-300 ${
-                      index === currentProjectIndex 
-                        ? 'bg-green-400 w-6' 
-                        : 'bg-gray-600 hover:bg-gray-500'
-                    }`}
-                    data-testid={`progress-dot-${index}`}
-                  />
-                ))}
-              </div>
+            {/* Progress dots */}
+            <div className="wip-dots">
+              {workInProgress.map((_, index) => (
+                <button
+                  key={index}
+                  onClick={() => setCurrentProjectIndex(index)}
+                  className={`wip-dot ${index === currentProjectIndex ? 'active' : ''}`}
+                  data-testid={`progress-dot-${index}`}
+                />
+              ))}
             </div>
           </div>
         </div>
