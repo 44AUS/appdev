@@ -228,6 +228,129 @@
   transform: scale(1.02);
 }
 
+/* New Service Card with moving gradient */
+.service-card-new {
+  position: relative;
+  background: #0A0A0A;
+  border-radius: 24px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  overflow: hidden;
+  cursor: pointer;
+  min-height: 320px;
+  transition: border-color 0.3s ease;
+}
+
+.service-card-new:hover {
+  border-color: rgba(59, 130, 246, 0.3);
+}
+
+.service-card-gradient {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+  z-index: 1;
+}
+
+.service-card-border-gradient {
+  position: absolute;
+  inset: -1px;
+  border-radius: 24px;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+  z-index: 0;
+}
+
+.service-card-content {
+  position: relative;
+  z-index: 2;
+  padding: 2rem;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.service-label {
+  display: inline-block;
+  color: #6B7280;
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  margin-bottom: 1rem;
+}
+
+.service-title-new {
+  font-size: 1.75rem;
+  font-weight: 600;
+  color: #ffffff;
+  line-height: 1.3;
+  margin-bottom: auto;
+  max-width: 280px;
+}
+
+.service-footer {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  margin-top: 3rem;
+}
+
+.service-price-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.service-price-symbol {
+  color: #3B82F6;
+  font-size: 1.5rem;
+  font-weight: 400;
+}
+
+.service-price-value {
+  color: #3B82F6;
+  font-size: 2.5rem;
+  font-weight: 600;
+  line-height: 1;
+  margin-left: -2px;
+}
+
+.service-price-desc {
+  color: #6B7280;
+  font-size: 0.875rem;
+  margin-top: 0.25rem;
+}
+
+.service-add-btn {
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #6B7280;
+  transition: all 0.3s ease;
+  border-radius: 50%;
+}
+
+.service-add-btn:hover {
+  color: #ffffff;
+  background: rgba(255, 255, 255, 0.1);
+}
+
+@media (max-width: 768px) {
+  .service-card-new {
+    min-height: 280px;
+  }
+  
+  .service-title-new {
+    font-size: 1.5rem;
+  }
+  
+  .service-price-value {
+    font-size: 2rem;
+  }
+}
+
 /* Expertise tag */
 .expertise-tag {
   display: inline-flex;
