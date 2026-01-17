@@ -486,9 +486,9 @@ function App() {
 
             {/* Main headline */}
             <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold text-white mt-12 mb-6 leading-tight">
-              Turbocharged{' '}
+              Atlanta's Premier{' '}
               <span className="gradient-text">React Native</span>{' '}
-              Engineering
+              Studio
             </h1>
             
             <p className="text-xl md:text-2xl text-gray-400 mb-4">
@@ -496,8 +496,8 @@ function App() {
             </p>
 
             <p className="text-gray-500 max-w-2xl mx-auto mb-10 text-lg">
-              An Atlanta-based React Native engineering studio building 
-              apps that users love and businesses depend on.
+              AppMakersATL is Atlanta, Georgia's leading mobile app development studio. 
+              We build high-performance iOS and Android apps that users love and businesses depend on.
             </p>
 
             {/* CTA */}
@@ -514,7 +514,7 @@ function App() {
 
             <p className="mt-4 text-gray-500">
               <Mail className="w-4 h-4 inline mr-2" />
-              hello@appandflow.com
+              hello@appmakersatl.com
             </p>
           </motion.div>
         </div>
