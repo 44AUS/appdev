@@ -78,7 +78,7 @@ const AppLogo = ({ colors, icon: Icon }) => (
 const workInProgress = [
   {
     id: 1,
-    name: "TechFlow AI",
+    name: "MintSlip",
     description: "Building next-gen AI-powered productivity platform",
     status: "Currently",
     colors: ["#8B5CF6", "#6366F1"],
@@ -92,14 +92,6 @@ const workInProgress = [
     colors: ["#10B981", "#059669"],
     icon: Users
   },
-  {
-    id: 3,
-    name: "EcoTrack",
-    description: "Sustainability tracking for enterprise clients",
-    status: "Currently",
-    colors: ["#3B82F6", "#2563EB"],
-    icon: Globe
-  }
 ];
 
 // Services data
@@ -116,28 +108,13 @@ const services = [
     description: "Deep-dive analysis of your existing app to identify bottlenecks and optimize for speed and efficiency.",
     price: "Starting at $3,000"
   },
-  {
-    icon: <Users className="w-8 h-8" />,
-    title: "Team Augmentation",
-    description: "Expert React Native developers to seamlessly integrate with your existing team.",
-    price: "Custom pricing"
-  }
 ];
 
 // Portfolio work data
 const portfolioWork = [
-  { name: "TechCorp", achievement: "Recommending us since 2018", logo: "💼" },
-  { name: "FinanceHub", achievement: "2M+ users onboarded", logo: "💰" },
-  { name: "MediaStream", achievement: "30M streams powered", logo: "🎬" },
-  { name: "RetailPro", achievement: "500+ stores connected", logo: "🛒" },
-  { name: "FitLife", achievement: "Series B funded", logo: "💪" },
-  { name: "TravelEase", achievement: "Acquired in 2023", logo: "✈️" },
-  { name: "EduLearn", achievement: "1M+ students reached", logo: "📚" },
-  { name: "GameZone", achievement: "Top 10 App Store", logo: "🎮" },
-  { name: "SocialBuzz", achievement: "10M+ downloads", logo: "💬" },
-  { name: "CloudSync", achievement: "Enterprise solution", logo: "☁️" },
-  { name: "PayEasy", achievement: "$1B+ processed", logo: "💳" },
-  { name: "SmartHome", achievement: "IoT integration", logo: "🏠" }
+  { name: "MintSlip", achievement: "Recommending us since 2018", logo: "💼" },
+  { name: "Supreme Detail Studio", achievement: "2M+ users onboarded", logo: "💰" },
+  { name: "StudyLoop", achievement: "30M streams powered", logo: "🎬" },
 ];
 
 // Expertise areas
@@ -148,8 +125,8 @@ const expertiseAreas = [
 
 // Team members
 const teamMembers = [
-  { name: "Alex", avatar: "👨‍💻" },
-  { name: "Sarah", avatar: "👩‍💼" },
+  { name: "Austin", avatar: "👨‍💻" },
+  { name: "Jerome", avatar: "👩‍💼" },
   { name: "Mike", avatar: "👨‍🎨" },
   { name: "Emma", avatar: "👩‍🔬" },
   { name: "Chris", avatar: "👨‍🚀" },
@@ -404,7 +381,7 @@ function App() {
             </p>
 
             <p className="text-gray-500 max-w-2xl mx-auto mb-10 text-lg">
-              A Montreal-based React Native engineering studio building 
+              An Atlanta-based React Native engineering studio building 
               apps that users love and businesses depend on.
             </p>
 
@@ -618,7 +595,7 @@ function App() {
             <div>
               <p className="text-gray-400 text-lg mb-6">
                 Founded in 2016, App&Flow started as a small team of passionate 
-                developers in Montreal. Today, we're a full-service React Native 
+                developers in Atlanta. Today, we're a full-service React Native 
                 engineering studio trusted by startups and Fortune 500 companies alike.
               </p>
               <p className="text-gray-400 text-lg mb-6">
@@ -688,7 +665,7 @@ function App() {
                 <span className="text-white font-semibold text-xl">App&Flow</span>
               </div>
               <p className="text-gray-500">
-                React Native engineering studio based in Montreal.
+                React Native engineering studio based in Atlanta.
               </p>
             </div>
 
@@ -725,10 +702,10 @@ function App() {
 
           <div className="border-t border-white/5 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
             <p className="text-gray-600 text-sm">
-              © 2024 App&Flow. All rights reserved.
+              © 2026 App&Flow. All rights reserved.
             </p>
             <p className="text-gray-600 text-sm">
-              Made with ❤️ in Montreal
+              Made with ❤️ in Atlanta
             </p>
           </div>
         </div>
