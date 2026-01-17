@@ -793,11 +793,11 @@ function App() {
             <h2 className="section-title">Open Source</h2>
           </div>
           <p className="text-gray-400 max-w-2xl mx-auto mb-8">
-            We believe in giving back to the community. Check out our contributions 
-            and projects on GitHub.
+            We believe in giving back to the Atlanta tech community and beyond. 
+            Check out our open source contributions and projects on GitHub.
           </p>
           <a 
-            href="https://github.com/appandflow" 
+            href="https://github.com/appmakersatl" 
             target="_blank" 
             rel="noopener noreferrer"
             className="secondary-button inline-flex"
@@ -819,50 +819,57 @@ function App() {
                 <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center">
                   <span className="text-white font-bold text-lg">A</span>
                 </div>
-                <span className="text-white font-semibold text-xl">App&Flow</span>
+                <span className="text-white font-semibold text-xl">AppMakersATL</span>
               </div>
               <p className="text-gray-500">
-                React Native engineering studio based in Atlanta.
+                Atlanta, Georgia's premier React Native and mobile app development studio.
+              </p>
+              <p className="text-gray-600 text-sm mt-2">
+                Serving Atlanta, Midtown, Buckhead, Decatur, Sandy Springs, and the greater Georgia metro area.
               </p>
             </div>
 
             <div>
               <h4 className="text-white font-semibold mb-4">Contact</h4>
-              <p className="text-gray-500 mb-2">hello@appandflow.com</p>
-              <p className="text-gray-500">new@appandflow.com</p>
+              <p className="text-gray-500 mb-2">hello@appmakersatl.com</p>
+              <p className="text-gray-500 mb-2">projects@appmakersatl.com</p>
+              <p className="text-gray-600 text-sm mt-3">
+                📍 Atlanta, GA 30303
+              </p>
             </div>
 
             <div>
               <h4 className="text-white font-semibold mb-4">Follow Us</h4>
               <div className="flex gap-4">
-                <a href="https://github.com/appandflow" className="footer-link" data-testid="footer-github">
+                <a href="https://github.com/appmakersatl" className="footer-link" data-testid="footer-github">
                   <Github className="w-5 h-5" />
                 </a>
-                <a href="https://linkedin.com/company/appandflow" className="footer-link" data-testid="footer-linkedin">
+                <a href="https://linkedin.com/company/appmakersatl" className="footer-link" data-testid="footer-linkedin">
                   <Linkedin className="w-5 h-5" />
                 </a>
-                <a href="https://x.com/appaborflow" className="footer-link" data-testid="footer-x">
+                <a href="https://x.com/appmakersatl" className="footer-link" data-testid="footer-x">
                   <Globe className="w-5 h-5" />
                 </a>
               </div>
             </div>
 
             <div>
-              <h4 className="text-white font-semibold mb-4">Language</h4>
-              <div className="flex gap-2">
-                <button className="text-white">EN</button>
-                <span className="text-gray-600">|</span>
-                <button className="text-gray-500 hover:text-white transition-colors">FR</button>
-              </div>
+              <h4 className="text-white font-semibold mb-4">Services</h4>
+              <ul className="text-gray-500 space-y-2 text-sm">
+                <li>React Native Development</li>
+                <li>iOS App Development</li>
+                <li>Android App Development</li>
+                <li>Mobile App Consulting</li>
+              </ul>
             </div>
           </div>
 
           <div className="border-t border-white/5 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
             <p className="text-gray-600 text-sm">
-              © 2026 App&Flow. All rights reserved.
+              © 2025 AppMakersATL. All rights reserved. Atlanta, Georgia.
             </p>
             <p className="text-gray-600 text-sm">
-              Made with ❤️ in Atlanta
+              Made with ❤️ in Atlanta, GA
             </p>
           </div>
         </div>
