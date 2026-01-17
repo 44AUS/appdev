@@ -251,12 +251,12 @@ const teamMembers = [
 // Discovery Call Modal - Opens email client
 const DiscoveryModal = ({ isOpen, onClose }) => {
   const handleEmailClick = () => {
-    window.location.href = 'mailto:hello@appandflow.com?subject=Discovery%20Call%20Request&body=Hi%20App%26Flow%20Team,%0A%0AI%27d%20like%20to%20schedule%20a%20discovery%20call%20to%20discuss%20my%20project.%0A%0AProject%20Type:%0ACompany:%0ABrief%20Description:%0A%0AThanks!';
+    window.location.href = 'mailto:hello@appmakersatl.com?subject=Discovery%20Call%20Request&body=Hi%20AppMakersATL%20Team,%0A%0AI%27d%20like%20to%20schedule%20a%20discovery%20call%20to%20discuss%20my%20project.%0A%0AProject%20Type:%0ACompany:%0ABrief%20Description:%0A%0AThanks!';
   };
 
   const handleCalendlyClick = () => {
     // Opens calendly or any scheduling link - replace with actual link
-    window.open('https://calendly.com/appandflow', '_blank');
+    window.open('https://calendly.com/appmakersatl', '_blank');
   };
 
   if (!isOpen) return null;
@@ -285,7 +285,7 @@ const DiscoveryModal = ({ isOpen, onClose }) => {
           </div>
 
           <p className="text-gray-400 mb-6">
-            Let's discuss your project! Choose how you'd like to get in touch:
+            Let's discuss your project! Choose how you'd like to get in touch with our Atlanta team:
           </p>
 
           <div className="space-y-4">
@@ -310,8 +310,8 @@ const DiscoveryModal = ({ isOpen, onClose }) => {
 
           <div className="mt-6 pt-6 border-t border-white/10 text-center">
             <p className="text-gray-500 text-sm mb-2">Or reach us directly at:</p>
-            <a href="mailto:hello@appandflow.com" className="text-blue-400 hover:text-blue-300 transition-colors">
-              hello@appandflow.com
+            <a href="mailto:hello@appmakersatl.com" className="text-blue-400 hover:text-blue-300 transition-colors">
+              hello@appmakersatl.com
             </a>
           </div>
         </motion.div>
