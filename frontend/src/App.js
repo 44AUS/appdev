@@ -707,9 +707,9 @@ function App() {
           </div>
 
           <p className="text-gray-400 max-w-3xl mb-10 text-lg">
-            Over the years, we've worked with top brands across various industries, 
-            delivering solutions that scale and perform. Our expertise spans the entire 
-            React Native ecosystem and beyond.
+            Based in Atlanta, Georgia, we've partnered with leading brands across the Southeast 
+            and nationwide. Our expertise spans the entire React Native and mobile app development 
+            ecosystem, delivering scalable solutions for Georgia businesses and beyond.
           </p>
 
           <div className="flex flex-wrap gap-3 mb-12">
@@ -730,7 +730,7 @@ function App() {
 
           {/* Client logos placeholder */}
           <div className="grid grid-cols-3 md:grid-cols-6 gap-8 items-center opacity-50">
-            {['NFL', 'Pizza Hut', 'Microsoft', 'Shopify', 'Discord', 'Spotify'].map((brand, i) => (
+            {['Coca-Cola', 'Delta', 'Home Depot', 'NCR', 'UPS', 'Mailchimp'].map((brand, i) => (
               <div key={i} className="text-center text-gray-500 font-medium">
                 {brand}
               </div>
