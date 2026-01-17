@@ -112,6 +112,165 @@
   box-shadow: 0 0 30px rgba(34, 197, 94, 0.1);
 }
 
+/* Work in Progress - New Design */
+.wip-card {
+  background: #0A0A0A;
+  border-radius: 24px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  padding: 2.5rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.wip-card-inner {
+  display: flex;
+  align-items: center;
+  gap: 2.5rem;
+}
+
+.wip-icon-container {
+  flex-shrink: 0;
+}
+
+.wip-icon {
+  width: 140px;
+  height: 140px;
+  border-radius: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.wip-icon-rainbow {
+  background: linear-gradient(135deg, #3B82F6 0%, #1D4ED8 100%);
+  position: relative;
+}
+
+.rainbow-arc {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  border: 16px solid transparent;
+  border-top-color: #EF4444;
+  border-right-color: #F97316;
+  position: relative;
+  transform: rotate(-45deg);
+}
+
+.rainbow-arc::before {
+  content: '';
+  position: absolute;
+  top: -8px;
+  left: -8px;
+  right: -8px;
+  bottom: -8px;
+  border-radius: 50%;
+  border: 12px solid transparent;
+  border-top-color: #FBBF24;
+  border-right-color: #22C55E;
+}
+
+.rainbow-arc::after {
+  content: '';
+  position: absolute;
+  top: 4px;
+  left: 4px;
+  right: 4px;
+  bottom: 4px;
+  border-radius: 50%;
+  border: 10px solid transparent;
+  border-top-color: #3B82F6;
+  border-right-color: #8B5CF6;
+}
+
+.wip-icon-expo {
+  background: #000000;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+.wip-icon-swoogo {
+  background: #F97316;
+}
+
+.wip-content {
+  flex: 1;
+}
+
+.wip-status {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.wip-status-text {
+  color: #22C55E;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.wip-description {
+  font-size: 1.75rem;
+  font-weight: 500;
+  color: #ffffff;
+  line-height: 1.4;
+  max-width: 600px;
+}
+
+.wip-dots {
+  display: flex;
+  gap: 0.5rem;
+  margin-top: 2rem;
+  justify-content: center;
+}
+
+.wip-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #3A3A3A;
+  transition: all 0.3s ease;
+}
+
+.wip-dot.active {
+  width: 24px;
+  border-radius: 4px;
+  background: #22C55E;
+}
+
+.wip-dot:hover:not(.active) {
+  background: #5A5A5A;
+}
+
+@media (max-width: 768px) {
+  .wip-card {
+    padding: 1.5rem;
+  }
+  
+  .wip-card-inner {
+    flex-direction: column;
+    gap: 1.5rem;
+    text-align: center;
+  }
+  
+  .wip-icon {
+    width: 100px;
+    height: 100px;
+    border-radius: 20px;
+  }
+  
+  .wip-description {
+    font-size: 1.25rem;
+  }
+  
+  .wip-status {
+    justify-content: center;
+  }
+}
+
 /* Work list section styles */
 .work-list {
   display: flex;
