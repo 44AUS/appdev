@@ -750,23 +750,24 @@ function App() {
           <div className="grid md:grid-cols-2 gap-12">
             <div>
               <p className="text-gray-400 text-lg mb-6">
-                Founded in 2016, App&Flow started as a small team of passionate 
-                developers in Atlanta. Today, we're a full-service React Native 
-                engineering studio trusted by startups and Fortune 500 companies alike.
+                Founded in Atlanta, Georgia, AppMakersATL started as a small team of passionate 
+                developers in the heart of the city's thriving tech scene. Today, we're the 
+                go-to React Native development studio for startups and Fortune 500 companies 
+                throughout the Atlanta metro area and across the Southeast.
               </p>
               <p className="text-gray-400 text-lg mb-6">
-                Our mission is simple: build apps that users love and businesses 
-                depend on. We obsess over performance, user experience, and code quality 
-                because we know these details make the difference.
+                Our mission is simple: build mobile apps that Atlanta businesses and users love. 
+                We obsess over performance, user experience, and code quality because we know 
+                these details make the difference between a good app and a great one.
               </p>
               <p className="text-white text-xl font-medium">
-                We deliver apps that just work — every time.
+                Atlanta's trusted partner for mobile app development.
               </p>
             </div>
 
             {/* Team avatars */}
             <div>
-              <h3 className="text-lg font-semibold text-white mb-6">Meet the Team</h3>
+              <h3 className="text-lg font-semibold text-white mb-6">Meet the Atlanta Team</h3>
               <div className="flex flex-wrap gap-4">
                 {teamMembers.map((member, index) => (
                   <motion.div
