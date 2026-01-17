@@ -537,45 +537,92 @@ function App() {
 
       {/* Portfolio Work Section */}
       <section ref={sectionsRef.work} className="py-20 px-4" data-testid="portfolio-section">
-        <div className="max-w-7xl mx-auto">
-          <div className="section-header">
-            <span className="section-hash">#</span>
-            <h2 className="section-title">Work</h2>
+        <div className="max-w-4xl mx-auto">
+          {/* Section header with stats */}
+          <div className="flex items-start justify-between mb-10">
+            <div>
+              <div className="flex items-center gap-2">
+                <span className="text-gray-500 text-2xl font-light">#</span>
+                <h2 className="text-3xl md:text-4xl font-bold text-white">Work</h2>
+              </div>
+              <p className="text-gray-500 text-sm mt-1">(that we can talk about)</p>
+            </div>
+            <div className="text-right">
+              <span className="text-gray-400 text-sm tracking-wider">10 YEARS, 35+ APPS</span>
+            </div>
           </div>
 
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+          {/* Work list items */}
+          <div className="work-list">
             {displayedWork.map((work, index) => (
               <motion.div
                 key={index}
-                className="work-card group cursor-pointer"
-                initial={{ opacity: 0, scale: 0.95 }}
-                whileInView={{ opacity: 1, scale: 1 }}
+                className="work-list-item"
+                initial={{ opacity: 0, y: 10 }}
+                whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                transition={{ delay: index * 0.05 }}
+                transition={{ delay: index * 0.08 }}
                 data-testid={`portfolio-card-${index}`}
               >
-                <div className="flex items-center gap-3 mb-3">
-                  <span className="text-2xl">{work.logo}</span>
-                  <h4 className="font-semibold text-white group-hover:text-blue-400 transition-colors">
-                    {work.name}
-                  </h4>
+                <div className="flex items-center gap-4">
+                  {/* Custom icon based on type */}
+                  {work.iconType === 'expo' && (
+                    <div className="work-icon work-icon-expo">
+                      <svg viewBox="0 0 24 24" className="w-5 h-5" fill="white">
+                        <path d="M12 2L2 19h20L12 2z"/>
+                      </svg>
+                    </div>
+                  )}
+                  {work.iconType === 'rainbow' && (
+                    <div className="work-icon work-icon-rainbow">
+                      <span className="text-lg">🌈</span>
+                    </div>
+                  )}
+                  {work.iconType === 'swoogo' && (
+                    <div className="work-icon work-icon-swoogo">
+                      <span className="text-white font-bold text-xs">go</span>
+                    </div>
+                  )}
+                  {work.iconType === 'dialogue' && (
+                    <div className="work-icon work-icon-dialogue">
+                      <svg viewBox="0 0 24 24" className="w-5 h-5" fill="none" stroke="white" strokeWidth="1.5">
+                        <path d="M12 21C16.9706 21 21 16.9706 21 12C21 7.02944 16.9706 3 12 3C7.02944 3 3 7.02944 3 12C3 16.9706 7.02944 21 12 21Z"/>
+                        <path d="M12 8C10.3431 8 9 9.34315 9 11C9 12.6569 10.3431 14 12 14C12.7956 14 13.5587 14.3161 14.1213 14.8787C14.6839 15.4413 15 16.2044 15 17"/>
+                      </svg>
+                    </div>
+                  )}
+                  {work.iconType === 'landing' && (
+                    <div className="work-icon work-icon-landing">
+                      <svg viewBox="0 0 24 24" className="w-5 h-5" fill="#000">
+                        <rect x="6" y="4" width="12" height="16" rx="2"/>
+                        <circle cx="12" cy="17" r="1"/>
+                      </svg>
+                    </div>
+                  )}
+                  {work.iconType === 'pointcard' && (
+                    <div className="work-icon work-icon-pointcard">
+                      <span className="text-white font-bold text-sm">P</span>
+                    </div>
+                  )}
+                  
+                  {/* Company name */}
+                  <h4 className="text-white font-semibold text-lg">{work.name}</h4>
+                  
+                  {/* Achievement badge */}
+                  <span className="work-achievement-badge">{work.achievement}</span>
                 </div>
-                <p className="text-sm text-gray-500">{work.achievement}</p>
               </motion.div>
             ))}
           </div>
 
-          <div className="text-center mt-8">
+          {/* Show more button */}
+          <div className="text-center mt-10">
             <button
               onClick={() => setShowAllWork(!showAllWork)}
-              className="secondary-button"
+              className="show-more-btn"
               data-testid="show-more-work-btn"
             >
-              {showAllWork ? (
-                <>Show less <ChevronUp className="w-4 h-4" /></>
-              ) : (
-                <>Show more <ChevronDown className="w-4 h-4" /></>
-              )}
+              {showAllWork ? 'Show less' : 'Show more'}
             </button>
           </div>
         </div>
