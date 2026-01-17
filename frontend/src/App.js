@@ -110,11 +110,50 @@ const services = [
   },
 ];
 
-// Portfolio work data
+// Portfolio work data with styled icons
 const portfolioWork = [
-  { name: "MintSlip", achievement: "Recommending us since 2018", logo: "💼" },
-  { name: "Supreme Detail Studio", achievement: "2M+ users onboarded", logo: "💰" },
-  { name: "StudyLoop", achievement: "30M streams powered", logo: "🎬" },
+  { 
+    name: "Expo", 
+    achievement: "Recommending us since 2016", 
+    iconType: "expo",
+    iconBg: "#000000",
+    iconContent: "∧"
+  },
+  { 
+    name: "Rainbow", 
+    achievement: "The most fun crypto wallet", 
+    iconType: "rainbow",
+    iconBg: "#3B82F6",
+    iconContent: "🌈"
+  },
+  { 
+    name: "Swoogo", 
+    achievement: "30m attendees brought together", 
+    iconType: "swoogo",
+    iconBg: "#F97316",
+    iconContent: "go"
+  },
+  { 
+    name: "Dialogue", 
+    achievement: "Acquired by Sun Life Financial", 
+    iconType: "dialogue",
+    iconBg: "transparent",
+    iconContent: "♡"
+  },
+  { 
+    name: "Landing", 
+    achievement: "900k+ users", 
+    iconType: "landing",
+    iconBg: "#BFFF00",
+    iconContent: "📱"
+  },
+  { 
+    name: "Point Card", 
+    achievement: "$46.5m Series B", 
+    iconType: "pointcard",
+    iconBg: "#1A1A1A",
+    iconContent: "P"
+  },
 ];
 
 // Expertise areas
