@@ -94,21 +94,89 @@ const workInProgress = [
   },
 ];
 
-// Services data
+// Services data - New design
 const services = [
   {
-    icon: <Rocket className="w-8 h-8" />,
-    title: "App Development",
-    description: "Full-cycle mobile and web application development using React Native, Expo, and modern frameworks.",
-    price: "Starting at $15,000"
+    label: "FROM 0 TO 1",
+    title: "Build the best app, from scratch",
+    price: "22,000",
+    priceDesc: "USD/month, 3 min."
   },
   {
-    icon: <Zap className="w-8 h-8" />,
-    title: "Performance Audit",
-    description: "Deep-dive analysis of your existing app to identify bottlenecks and optimize for speed and efficiency.",
-    price: "Starting at $3,000"
+    label: "ALREADY HAVE AN APP?",
+    title: "Improve your existing app",
+    price: "15,000",
+    priceDesc: "USD/month, 2 min."
   },
 ];
+
+// Service Card Component with mouse-following gradient
+const ServiceCard = ({ service, index }) => {
+  const cardRef = useRef(null);
+  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
+  const [isHovered, setIsHovered] = useState(false);
+
+  const handleMouseMove = (e) => {
+    if (!cardRef.current) return;
+    const rect = cardRef.current.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+    setMousePosition({ x, y });
+  };
+
+  return (
+    <motion.div
+      ref={cardRef}
+      className="service-card-new"
+      initial={{ opacity: 0, y: 30 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+      transition={{ delay: index * 0.15 }}
+      onMouseMove={handleMouseMove}
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+      data-testid={`service-card-${index}`}
+    >
+      {/* Gradient overlay that follows cursor */}
+      <div 
+        className="service-card-gradient"
+        style={{
+          opacity: isHovered ? 1 : 0,
+          background: `radial-gradient(600px circle at ${mousePosition.x}px ${mousePosition.y}px, rgba(59, 130, 246, 0.15), transparent 40%)`
+        }}
+      />
+      
+      {/* Border gradient effect */}
+      <div 
+        className="service-card-border-gradient"
+        style={{
+          opacity: isHovered ? 1 : 0,
+          background: `radial-gradient(400px circle at ${mousePosition.x}px ${mousePosition.y}px, rgba(59, 130, 246, 0.4), transparent 40%)`
+        }}
+      />
+      
+      <div className="service-card-content">
+        <span className="service-label">{service.label}</span>
+        <h3 className="service-title-new">{service.title}</h3>
+        
+        <div className="service-footer">
+          <div className="service-price-container">
+            <span className="service-price-symbol">$</span>
+            <span className="service-price-value">{service.price}</span>
+            <span className="service-price-desc">{service.priceDesc}</span>
+          </div>
+          <button className="service-add-btn" data-testid={`service-add-btn-${index}`}>
+            <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth="1.5">
+              <circle cx="10" cy="10" r="8" />
+              <line x1="10" y1="6" x2="10" y2="14" />
+              <line x1="6" y1="10" x2="14" y2="10" />
+            </svg>
+          </button>
+        </div>
+      </div>
+    </motion.div>
+  );
+};
 
 // Portfolio work data with styled icons
 const portfolioWork = [
