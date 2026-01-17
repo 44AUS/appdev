@@ -574,30 +574,15 @@ function App() {
 
       {/* Services Section */}
       <section ref={sectionsRef.services} className="py-20 px-4 bg-dark-800/50" data-testid="services-section">
-        <div className="max-w-7xl mx-auto">
+        <div className="max-w-5xl mx-auto">
           <div className="section-header">
             <span className="section-hash">#</span>
             <h2 className="section-title">Services</h2>
           </div>
 
-          <div className="grid md:grid-cols-3 gap-8">
+          <div className="grid md:grid-cols-2 gap-6">
             {services.map((service, index) => (
-              <motion.div
-                key={index}
-                className="service-card"
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: index * 0.15 }}
-                data-testid={`service-card-${index}`}
-              >
-                <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-blue-500/20 to-purple-600/20 flex items-center justify-center text-blue-400 mb-6">
-                  {service.icon}
-                </div>
-                <h3 className="text-xl font-semibold text-white mb-3">{service.title}</h3>
-                <p className="text-gray-400 mb-4">{service.description}</p>
-                <p className="text-blue-400 font-medium">{service.price}</p>
-              </motion.div>
+              <ServiceCard key={index} service={service} index={index} />
             ))}
           </div>
         </div>
