@@ -386,7 +386,7 @@ function App() {
             <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center flex-shrink-0">
               <span className="text-white font-bold text-sm">A</span>
             </div>
-            <span className="text-white font-semibold text-base md:text-xl">App&Flow</span>
+            <span className="text-white font-semibold text-base md:text-xl">AppMakersATL</span>
           </motion.div>
 
           {/* Desktop nav */}
