@@ -74,23 +74,31 @@ const AppLogo = ({ colors, icon: Icon }) => (
   </div>
 );
 
-// Work in progress data with app-style icons
+// Work in progress data with app-style icons - New design
 const workInProgress = [
   {
     id: 1,
-    name: "MintSlip",
-    description: "Building next-gen AI-powered productivity platform",
-    status: "Currently",
-    colors: ["#8B5CF6", "#6366F1"],
-    icon: Zap
+    name: "Rainbow",
+    description: "Working with Rainbow to make their crypto wallet faster, safer, and more robust.",
+    status: "CURRENTLY",
+    iconType: "rainbow",
+    iconBg: "linear-gradient(135deg, #3B82F6 0%, #1D4ED8 100%)",
   },
   {
     id: 2,
-    name: "HealthSync",
-    description: "Healthcare management app with real-time sync",
-    status: "Currently", 
-    colors: ["#10B981", "#059669"],
-    icon: Users
+    name: "Expo",
+    description: "Partnering with Expo to enhance developer experience and build performance improvements.",
+    status: "CURRENTLY", 
+    iconType: "expo",
+    iconBg: "#000000",
+  },
+  {
+    id: 3,
+    name: "Swoogo",
+    description: "Helping Swoogo scale their event platform to handle millions of attendees seamlessly.",
+    status: "CURRENTLY", 
+    iconType: "swoogo",
+    iconBg: "#F97316",
   },
 ];
 
