@@ -461,13 +461,13 @@
 }
 
 .service-price-symbol {
-  color: #3B82F6;
+  color: #FFF;
   font-size: 1.5rem;
   font-weight: 400;
 }
 
 .service-price-value {
-  color: #3B82F6;
+  color: #FFF;
   font-size: 2.5rem;
   font-weight: 600;
   line-height: 1;

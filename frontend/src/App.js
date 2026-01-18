@@ -21,8 +21,8 @@ import './App.css';
 // React Native Icon (actual logo)
 const ReactNativeIcon = ({ className }) => (
   <svg viewBox="-11.5 -10.23174 23 20.46348" className={className}>
-    <circle cx="0" cy="0" r="2.05" fill="#61dafb"/>
-    <g stroke="#61dafb" strokeWidth="1" fill="none">
+    <circle cx="0" cy="0" r="2.05" fill="#FFF"/>
+    <g stroke="#FFF" strokeWidth="1" fill="none">
       <ellipse rx="11" ry="4.2"/>
       <ellipse rx="11" ry="4.2" transform="rotate(60)"/>
       <ellipse rx="11" ry="4.2" transform="rotate(120)"/>
@@ -32,9 +32,7 @@ const ReactNativeIcon = ({ className }) => (
 
 // Expo Icon (actual logo)
 const ExpoIcon = ({ className }) => (
-  <svg viewBox="0 0 24 24" className={className} fill="white">
-    <path d="M12 0C5.372 0 0 5.372 0 12s5.372 12 12 12 12-5.372 12-12S18.628 0 12 0zm-.455 4.5l6.818 13.636H5.091L11.545 4.5zm.91 0l6.818 13.636h-.001L12.455 4.5z"/>
-  </svg>
+    <svg viewBox="0 0 24 24" className={className} fill="white"><path fill="#FFF" d="M121.309 84.673c2.094-3.086 4.385-3.478 6.244-3.478c1.86 0 4.957.392 7.051 3.478c16.502 22.667 43.742 67.819 63.835 101.126c13.104 21.72 23.168 38.403 25.233 40.526c7.751 7.97 18.382 3.003 24.559-6.037c6.081-8.9 7.77-15.15 7.77-21.817c0-4.54-88.106-168.4-96.979-182.039C150.49 3.314 147.71 0 133.106 0h-10.93c-14.56 0-16.665 3.314-25.198 16.432C88.106 30.072 0 193.93 0 198.472c0 6.666 1.688 12.916 7.77 21.816c6.177 9.04 16.808 14.007 24.559 6.037c2.065-2.123 12.13-18.806 25.233-40.526c20.093-33.307 47.245-78.46 63.747-101.126"/></svg>
 );
 
 // Animated concentric circles component with actual logos
@@ -46,7 +44,8 @@ const ConcentricCircles = () => (
     <div className="concentric-circle"></div>
     <div className="logo-container">
       <motion.div 
-        className="w-14 h-14 md:w-16 md:h-16 rounded-xl bg-gradient-to-br from-[#61dafb]/20 to-[#61dafb]/10 flex items-center justify-center backdrop-blur-sm border border-[#61dafb]/30"
+        className="w-14 h-14 md:w-16 md:h-16 rounded-xl bg-black flex items-center justify-center border border-white/20"
+
         animate={{ y: [0, -8, 0] }}
         transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
       >
@@ -54,7 +53,7 @@ const ConcentricCircles = () => (
       </motion.div>
       <div className="text-white/60 text-2xl md:text-3xl font-light mx-2">+</div>
       <motion.div 
-        className="w-14 h-14 md:w-16 md:h-16 rounded-xl bg-gradient-to-br from-white/20 to-white/5 flex items-center justify-center backdrop-blur-sm border border-white/20"
+        className="w-14 h-14 md:w-16 md:h-16 rounded-xl bg-black flex items-center justify-center border border-white/20"
         animate={{ y: [0, 8, 0] }}
         transition={{ duration: 3, repeat: Infinity, ease: "easeInOut", delay: 0.5 }}
       >
@@ -78,8 +77,8 @@ const AppLogo = ({ colors, icon: Icon }) => (
 const workInProgress = [
   {
     id: 1,
-    name: "Rainbow",
-    description: "Working with Rainbow to make their crypto wallet faster, safer, and more robust.",
+    name: "MintSlip",
+    description: "Working with MintSlip to build the fastest, and more robust paystub generator.",
     status: "CURRENTLY",
     iconType: "rainbow",
     iconBg: "linear-gradient(135deg, #3B82F6 0%, #1D4ED8 100%)",
@@ -94,8 +93,8 @@ const workInProgress = [
   },
   {
     id: 3,
-    name: "Swoogo",
-    description: "Helping Swoogo scale their event platform to handle millions of attendees seamlessly.",
+    name: "Supreme Detail Studio",
+    description: "Helping Supreme Detail Studio scale their detailing platform to handle in app bookings.",
     status: "CURRENTLY", 
     iconType: "swoogo",
     iconBg: "#F97316",
@@ -107,14 +106,14 @@ const services = [
   {
     label: "FROM 0 TO 1",
     title: "Build the best app, from scratch",
-    price: "22,000",
+    price: "10,000",
     priceDesc: "USD/month, 3 min."
   },
   {
     label: "ALREADY HAVE AN APP?",
     title: "Improve your existing app",
-    price: "15,000",
-    priceDesc: "USD/month, 2 min."
+    price: "300",
+    priceDesc: "USD/hour + audit"
   },
 ];
 
@@ -190,45 +189,24 @@ const ServiceCard = ({ service, index }) => {
 const portfolioWork = [
   { 
     name: "Expo", 
-    achievement: "Recommending us since 2016", 
+    achievement: "Recommending us since 2022", 
     iconType: "expo",
     iconBg: "#000000",
     iconContent: "∧"
   },
   { 
-    name: "Rainbow", 
-    achievement: "The most fun crypto wallet", 
+    name: "MintSlip", 
+    achievement: "The best Paystub Generator", 
     iconType: "rainbow",
     iconBg: "#3B82F6",
     iconContent: "🌈"
   },
   { 
-    name: "Swoogo", 
-    achievement: "30m attendees brought together", 
+    name: "Supreme Detail Studio", 
+    achievement: "Over 2k clients acquired", 
     iconType: "swoogo",
     iconBg: "#F97316",
     iconContent: "go"
-  },
-  { 
-    name: "Dialogue", 
-    achievement: "Acquired by Sun Life Financial", 
-    iconType: "dialogue",
-    iconBg: "transparent",
-    iconContent: "♡"
-  },
-  { 
-    name: "Landing", 
-    achievement: "900k+ users", 
-    iconType: "landing",
-    iconBg: "#BFFF00",
-    iconContent: "📱"
-  },
-  { 
-    name: "Point Card", 
-    achievement: "$46.5m Series B", 
-    iconType: "pointcard",
-    iconBg: "#1A1A1A",
-    iconContent: "P"
   },
 ];
 
@@ -240,12 +218,9 @@ const expertiseAreas = [
 
 // Team members
 const teamMembers = [
-  { name: "Austin", avatar: "👨‍💻" },
-  { name: "Jerome", avatar: "👩‍💼" },
+  { name: "Austin", avatar: "https://media.licdn.com/dms/image/v2/D5603AQEE4HfTuiUTDw/profile-displayphoto-crop_800_800/B56Zor9sa4J4AI-/0/1761674184991?e=1770249600&v=beta&t=62lcyJxrd8bx11gpcWtj-pH-IUCyayJMtiDDF1zGwLs" },
+  { name: "Jerome", avatar: "https://media.licdn.com/dms/image/v2/D4D03AQGHsPjpVrGY4A/profile-displayphoto-shrink_800_800/profile-displayphoto-shrink_800_800/0/1731553045462?e=1770249600&v=beta&t=5LHHkhK3goHAo1D3zdAqMeytfCUSzs8rDiKESVXewk4" },
   { name: "Mike", avatar: "👨‍🎨" },
-  { name: "Emma", avatar: "👩‍🔬" },
-  { name: "Chris", avatar: "👨‍🚀" },
-  { name: "Lisa", avatar: "👩‍💻" }
 ];
 
 // Discovery Call Modal - Opens email client
@@ -522,11 +497,11 @@ function App() {
 
       {/* Work in Progress Section */}
       <section className="py-20 px-4" data-testid="work-in-progress-section">
-        <div className="max-w-5xl mx-auto">
+        <div className="max-w-4xl mx-auto">
           <div className="section-header">
-            <span className="section-hash">#</span>
-            <h2 className="section-title">Work in Progress</h2>
-            <span className="text-gray-600 text-sm">(that we can talk about)</span>
+                <span className="text-gray-500 text-2xl font-light">#</span>
+                <h2 className="text-3xl md:text-4xl font-bold text-white">Work In Progress</h2>
+            <p className="text-gray-500 text-sm mt-1">(that we can talk about)</p>
           </div>
 
           {/* Large transitioning card */}
@@ -543,20 +518,18 @@ function App() {
                 {/* Large App Icon */}
                 <div className="wip-icon-container">
                   {workInProgress[currentProjectIndex].iconType === 'rainbow' && (
-                    <div className="wip-icon wip-icon-rainbow">
-                      <div className="rainbow-arc"></div>
+                    <div className="wip-icon wip-icon-swoogo">
+                    <img src='https://play-lh.googleusercontent.com/9n4kPRKNBLDlh00B_91Okqe11DjBS6Nz_v02MmtJM9pPqlVAYqxx8QL7iFh7xLP-yglrtj7wLKR3M_nGpJwC-Ew=w480-h960-rw' />
                     </div>
                   )}
                   {workInProgress[currentProjectIndex].iconType === 'expo' && (
-                    <div className="wip-icon wip-icon-expo">
-                      <svg viewBox="0 0 24 24" className="w-16 h-16" fill="white">
-                        <path d="M12 2L2 19h20L12 2z"/>
-                      </svg>
+                    <div className="wip-icon wip-icon-swoogo">
+                    <img src='https://play-lh.googleusercontent.com/algsmuhitlyCU_Yy3IU7-7KYIhCBwx5UJG4Bln-hygBjjlUVCiGo1y8W5JNqYm9WW3s=w480-h960-rw' />
                     </div>
                   )}
                   {workInProgress[currentProjectIndex].iconType === 'swoogo' && (
                     <div className="wip-icon wip-icon-swoogo">
-                      <span className="text-white font-bold text-2xl">go</span>
+                    <img src='https://scontent-atl3-1.xx.fbcdn.net/v/t39.30808-6/448136429_361606140361411_3051297350919406801_n.jpg?_nc_cat=100&ccb=1-7&_nc_sid=6ee11a&_nc_ohc=NpjPSRCW3lAQ7kNvwHxk4I3&_nc_oc=Adkfun6pwjqr2zJRUxs83MCD_wN7tYWzUA9KlSCWGq9MDxg10rHA-yaC7LxWOLbj4ud_sT80lfUI5Z3TCdTXvV3G&_nc_zt=23&_nc_ht=scontent-atl3-1.xx&_nc_gid=OWiuRa-9sEeIUKT2GqRxNg&oh=00_Afp0shIB-qHjDdI67Sw_5ukeHq6JTcIP4KSX3H8PkHLGvA&oe=6971FFE9' />
                     </div>
                   )}
                 </div>
@@ -591,10 +564,10 @@ function App() {
 
       {/* Services Section */}
       <section ref={sectionsRef.services} className="py-20 px-4 bg-dark-800/50" data-testid="services-section">
-        <div className="max-w-5xl mx-auto">
+        <div className="max-w-4xl mx-auto">
           <div className="section-header">
-            <span className="section-hash">#</span>
-            <h2 className="section-title">Services</h2>
+                <span className="text-gray-500 text-2xl font-light">#</span>
+                <h2 className="text-3xl md:text-4xl font-bold text-white">Services</h2>
           </div>
 
           <div className="grid md:grid-cols-2 gap-6">
@@ -638,40 +611,17 @@ function App() {
                   {/* Custom icon based on type */}
                   {work.iconType === 'expo' && (
                     <div className="work-icon work-icon-expo">
-                      <svg viewBox="0 0 24 24" className="w-5 h-5" fill="white">
-                        <path d="M12 2L2 19h20L12 2z"/>
-                      </svg>
+                      <img src='https://play-lh.googleusercontent.com/algsmuhitlyCU_Yy3IU7-7KYIhCBwx5UJG4Bln-hygBjjlUVCiGo1y8W5JNqYm9WW3s=w480-h960-rw' />
                     </div>
                   )}
                   {work.iconType === 'rainbow' && (
                     <div className="work-icon work-icon-rainbow">
-                      <span className="text-lg">🌈</span>
+                      <img src='https://play-lh.googleusercontent.com/9n4kPRKNBLDlh00B_91Okqe11DjBS6Nz_v02MmtJM9pPqlVAYqxx8QL7iFh7xLP-yglrtj7wLKR3M_nGpJwC-Ew=w480-h960-rw' />
                     </div>
                   )}
                   {work.iconType === 'swoogo' && (
                     <div className="work-icon work-icon-swoogo">
-                      <span className="text-white font-bold text-xs">go</span>
-                    </div>
-                  )}
-                  {work.iconType === 'dialogue' && (
-                    <div className="work-icon work-icon-dialogue">
-                      <svg viewBox="0 0 24 24" className="w-5 h-5" fill="none" stroke="white" strokeWidth="1.5">
-                        <path d="M12 21C16.9706 21 21 16.9706 21 12C21 7.02944 16.9706 3 12 3C7.02944 3 3 7.02944 3 12C3 16.9706 7.02944 21 12 21Z"/>
-                        <path d="M12 8C10.3431 8 9 9.34315 9 11C9 12.6569 10.3431 14 12 14C12.7956 14 13.5587 14.3161 14.1213 14.8787C14.6839 15.4413 15 16.2044 15 17"/>
-                      </svg>
-                    </div>
-                  )}
-                  {work.iconType === 'landing' && (
-                    <div className="work-icon work-icon-landing">
-                      <svg viewBox="0 0 24 24" className="w-5 h-5" fill="#000">
-                        <rect x="6" y="4" width="12" height="16" rx="2"/>
-                        <circle cx="12" cy="17" r="1"/>
-                      </svg>
-                    </div>
-                  )}
-                  {work.iconType === 'pointcard' && (
-                    <div className="work-icon work-icon-pointcard">
-                      <span className="text-white font-bold text-sm">P</span>
+                      <img src='https://scontent-atl3-1.xx.fbcdn.net/v/t39.30808-6/448136429_361606140361411_3051297350919406801_n.jpg?_nc_cat=100&ccb=1-7&_nc_sid=6ee11a&_nc_ohc=NpjPSRCW3lAQ7kNvwHxk4I3&_nc_oc=Adkfun6pwjqr2zJRUxs83MCD_wN7tYWzUA9KlSCWGq9MDxg10rHA-yaC7LxWOLbj4ud_sT80lfUI5Z3TCdTXvV3G&_nc_zt=23&_nc_ht=scontent-atl3-1.xx&_nc_gid=OWiuRa-9sEeIUKT2GqRxNg&oh=00_Afp0shIB-qHjDdI67Sw_5ukeHq6JTcIP4KSX3H8PkHLGvA&oe=6971FFE9' />
                     </div>
                   )}
                   
@@ -700,10 +650,10 @@ function App() {
 
       {/* Expertise Section */}
       <section ref={sectionsRef.expertise} className="py-20 px-4 bg-dark-800/50" data-testid="expertise-section">
-        <div className="max-w-7xl mx-auto">
+        <div className="max-w-4xl mx-auto">
           <div className="section-header">
-            <span className="section-hash">#</span>
-            <h2 className="section-title">Expertise</h2>
+                <span className="text-gray-500 text-2xl font-light">#</span>
+                <h2 className="text-3xl md:text-4xl font-bold text-white">Expertise</h2>
           </div>
 
           <p className="text-gray-400 max-w-3xl mb-10 text-lg">
@@ -741,10 +691,10 @@ function App() {
 
       {/* About Section */}
       <section ref={sectionsRef.about} className="py-20 px-4" data-testid="about-section">
-        <div className="max-w-7xl mx-auto">
+        <div className="max-w-4xl mx-auto">
           <div className="section-header">
-            <span className="section-hash">#</span>
-            <h2 className="section-title">About</h2>
+                <span className="text-gray-500 text-2xl font-light">#</span>
+                <h2 className="text-3xl md:text-4xl font-bold text-white">About</h2>
           </div>
 
           <div className="grid md:grid-cols-2 gap-12">
@@ -767,7 +717,7 @@ function App() {
 
             {/* Team avatars */}
             <div>
-              <h3 className="text-lg font-semibold text-white mb-6">Meet the Atlanta Team</h3>
+              <h3 className="text-lg font-semibold text-white mb-6">Meet the Team</h3>
               <div className="flex flex-wrap gap-4">
                 {teamMembers.map((member, index) => (
                   <motion.div
@@ -776,7 +726,7 @@ function App() {
                     whileHover={{ scale: 1.1 }}
                     data-testid={`team-member-${index}`}
                   >
-                    {member.avatar}
+                    <img src={member.avatar} />
                   </motion.div>
                 ))}
               </div>
@@ -789,11 +739,11 @@ function App() {
       <section className="py-20 px-4 bg-dark-800/50" data-testid="open-source-section">
         <div className="max-w-7xl mx-auto text-center">
           <div className="section-header justify-center">
-            <span className="section-hash">#</span>
-            <h2 className="section-title">Open Source</h2>
+                <span className="text-gray-500 text-2xl font-light">#</span>
+                <h2 className="text-3xl md:text-4xl font-bold text-white">Open Source</h2>
           </div>
           <p className="text-gray-400 max-w-2xl mx-auto mb-8">
-            We believe in giving back to the Atlanta tech community and beyond. 
+            We believe in giving back to the tech community and beyond. 
             Check out our open source contributions and projects on GitHub.
           </p>
           <a 
@@ -866,7 +816,7 @@ function App() {
 
           <div className="border-t border-white/5 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
             <p className="text-gray-600 text-sm">
-              © 2025 AppMakersATL. All rights reserved. Atlanta, Georgia.
+              © 2026 AppMakersATL. All rights reserved. Atlanta, Georgia.
             </p>
             <p className="text-gray-600 text-sm">
               Made with ❤️ in Atlanta, GA
@@ -887,9 +837,6 @@ function App() {
             {item}
           </button>
         ))}
-        <button className="ml-2 text-gray-500 hover:text-white transition-colors">
-          <Settings className="w-4 h-4" />
-        </button>
       </nav>
 
       {/* Discovery Call Modal */}
