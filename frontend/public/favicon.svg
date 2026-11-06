@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <g id="s3"><polygon points="32,25 54.5,38 32,51 9.5,38" fill="#C4B5FD"/><polygon points="9.5,38 32,51 32,58 9.5,45" fill="#7C4DEB"/><polygon points="54.5,38 32,51 32,58 54.5,45" fill="#4569ED"/></g>
+  <g id="s2"><polygon points="32,15.5 54.5,28.5 32,41.5 9.5,28.5" fill="#C4B5FD"/><polygon points="9.5,28.5 32,41.5 32,48.5 9.5,35.5" fill="#7C4DEB"/><polygon points="54.5,28.5 32,41.5 32,48.5 54.5,35.5" fill="#4569ED"/></g>
+  <g id="s1"><polygon points="32,6 54.5,19 32,32 9.5,19" fill="#C4B5FD"/><polygon points="9.5,19 32,32 32,39 9.5,26" fill="#7C4DEB"/><polygon points="54.5,19 32,32 32,39 54.5,26" fill="#4569ED"/></g>
+</svg>

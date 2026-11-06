@@ -14,9 +14,9 @@ module.exports = {
           500: '#2D2D2D',
         },
         'accent': {
-          blue: '#3B82F6',
           purple: '#8B5CF6',
-          cyan: '#06B6D4',
+          light: '#A78BFA',
+          blue: '#4F7CFF',
         }
       },
       fontFamily: {
@@ -33,8 +33,8 @@ module.exports = {
           '50%': { transform: 'translateY(-20px)' },
         },
         glow: {
-          '0%': { boxShadow: '0 0 20px rgba(59, 130, 246, 0.3)' },
-          '100%': { boxShadow: '0 0 40px rgba(59, 130, 246, 0.6)' },
+          '0%': { boxShadow: '0 0 20px rgba(139, 92, 246, 0.3)' },
+          '100%': { boxShadow: '0 0 40px rgba(139, 92, 246, 0.6)' },
         }
       }
     },

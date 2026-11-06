@@ -6,7 +6,7 @@ import os
 import uuid
 from datetime import datetime
 
-app = FastAPI(title="App&Flow API", version="1.0.0")
+app = FastAPI(title="Flatt Apps API", version="1.0.0")
 
 # CORS configuration
 app.add_middleware(

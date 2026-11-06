@@ -1,329 +1,394 @@
-import React, { useState, useEffect, useRef } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { 
-  ArrowRight, 
-  Menu, 
-  X, 
-  Settings, 
-  Github, 
-  Linkedin, 
-  Mail,
-  ChevronDown,
-  ChevronUp,
+import React, { useState, useEffect, useRef, useId } from 'react';
+import { motion, AnimatePresence, MotionConfig, useMotionValue, useScroll, useSpring, useTransform } from 'framer-motion';
+import {
+  ArrowRight,
+  Briefcase,
+  CheckCircle2,
+  ChevronRight,
+  Code2,
+  Cpu,
   ExternalLink,
+  Github,
+  Globe,
+  Home,
+  Layers,
+  Linkedin,
+  Mail,
+  MapPin,
+  Plus,
   Rocket,
+  Smartphone,
   Users,
-  Zap,
-  Globe
+  X,
 } from 'lucide-react';
+import mintslipLogo from './assets/logos/mintslip.png';
+import cinecastLogo from './assets/logos/cinecast.png';
+import urloadLogo from './assets/logos/urload.png';
 import './App.css';
 
-// React Native Icon (actual logo)
 const ReactNativeIcon = ({ className }) => (
   <svg viewBox="-11.5 -10.23174 23 20.46348" className={className}>
-    <circle cx="0" cy="0" r="2.05" fill="#FFF"/>
+    <circle cx="0" cy="0" r="2.05" fill="#FFF" />
     <g stroke="#FFF" strokeWidth="1" fill="none">
-      <ellipse rx="11" ry="4.2"/>
-      <ellipse rx="11" ry="4.2" transform="rotate(60)"/>
-      <ellipse rx="11" ry="4.2" transform="rotate(120)"/>
+      <ellipse rx="11" ry="4.2" />
+      <ellipse rx="11" ry="4.2" transform="rotate(60)" />
+      <ellipse rx="11" ry="4.2" transform="rotate(120)" />
     </g>
   </svg>
 );
 
-// Expo Icon (actual logo)
 const ExpoIcon = ({ className }) => (
-    <svg viewBox="0 0 24 24" className={className} fill="white"><path fill="#FFF" d="M121.309 84.673c2.094-3.086 4.385-3.478 6.244-3.478c1.86 0 4.957.392 7.051 3.478c16.502 22.667 43.742 67.819 63.835 101.126c13.104 21.72 23.168 38.403 25.233 40.526c7.751 7.97 18.382 3.003 24.559-6.037c6.081-8.9 7.77-15.15 7.77-21.817c0-4.54-88.106-168.4-96.979-182.039C150.49 3.314 147.71 0 133.106 0h-10.93c-14.56 0-16.665 3.314-25.198 16.432C88.106 30.072 0 193.93 0 198.472c0 6.666 1.688 12.916 7.77 21.816c6.177 9.04 16.808 14.007 24.559 6.037c2.065-2.123 12.13-18.806 25.233-40.526c20.093-33.307 47.245-78.46 63.747-101.126"/></svg>
+  <svg viewBox="0 0 256 230" className={className} fill="white"><path fill="#FFF" d="M121.309 84.673c2.094-3.086 4.385-3.478 6.244-3.478c1.86 0 4.957.392 7.051 3.478c16.502 22.667 43.742 67.819 63.835 101.126c13.104 21.72 23.168 38.403 25.233 40.526c7.751 7.97 18.382 3.003 24.559-6.037c6.081-8.9 7.77-15.15 7.77-21.817c0-4.54-88.106-168.4-96.979-182.039C150.49 3.314 147.71 0 133.106 0h-10.93c-14.56 0-16.665 3.314-25.198 16.432C88.106 30.072 0 193.93 0 198.472c0 6.666 1.688 12.916 7.77 21.816c6.177 9.04 16.808 14.007 24.559 6.037c2.065-2.123 12.13-18.806 25.233-40.526c20.093-33.307 47.245-78.46 63.747-101.126"/></svg>
 );
 
-// Animated concentric circles component with actual logos
-const ConcentricCircles = () => (
-  <div className="hero-graphic mx-auto">
-    <div className="concentric-circle"></div>
-    <div className="concentric-circle"></div>
-    <div className="concentric-circle"></div>
-    <div className="concentric-circle"></div>
-    <div className="logo-container">
-      <motion.div 
-        className="w-14 h-14 md:w-16 md:h-16 rounded-xl bg-black flex items-center justify-center border border-white/20"
+// Flatt Apps logo: an isometric cube built from three stacked layers,
+// one for each app or tech stack we ship. `spread` animates the layers apart.
+const SLAB_OFFSETS = [19, 9.5, 0]; // bottom to top, so upper layers paint over lower ones
 
-        animate={{ y: [0, -8, 0] }}
-        transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
-      >
-        <ReactNativeIcon className="w-10 h-10 md:w-12 md:h-12" />
-      </motion.div>
-      <div className="text-white/60 text-2xl md:text-3xl font-light mx-2">+</div>
-      <motion.div 
-        className="w-14 h-14 md:w-16 md:h-16 rounded-xl bg-black flex items-center justify-center border border-white/20"
-        animate={{ y: [0, 8, 0] }}
-        transition={{ duration: 3, repeat: Infinity, ease: "easeInOut", delay: 0.5 }}
-      >
-        <ExpoIcon className="w-8 h-8 md:w-10 md:h-10" />
-      </motion.div>
+const CubeSlab = ({ offset, gradientId }) => (
+  <>
+    <polygon points={`32,${6 + offset} 54.5,${19 + offset} 32,${32 + offset} 9.5,${19 + offset}`} fill={`url(#${gradientId}-top)`} />
+    <polygon points={`9.5,${19 + offset} 32,${32 + offset} 32,${39 + offset} 9.5,${26 + offset}`} fill={`url(#${gradientId}-left)`} />
+    <polygon points={`54.5,${19 + offset} 32,${32 + offset} 32,${39 + offset} 54.5,${26 + offset}`} fill={`url(#${gradientId}-right)`} />
+  </>
+);
+
+const FlattLogo = ({ className, spread = false }) => {
+  const gradientId = `flatt-${useId().replace(/:/g, '')}`;
+
+  return (
+    <svg viewBox="0 0 64 64" className={className} role="img" aria-label="Flatt Apps logo">
+      <defs>
+        <linearGradient id={`${gradientId}-top`} x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0" stopColor="#DDD6FE" />
+          <stop offset="1" stopColor="#A78BFA" />
+        </linearGradient>
+        <linearGradient id={`${gradientId}-left`} x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0" stopColor="#8B5CF6" />
+          <stop offset="1" stopColor="#6D3FE0" />
+        </linearGradient>
+        <linearGradient id={`${gradientId}-right`} x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0" stopColor="#4F7CFF" />
+          <stop offset="1" stopColor="#3B5BDB" />
+        </linearGradient>
+      </defs>
+      {SLAB_OFFSETS.map((offset, index) => (
+        <motion.g
+          key={offset}
+          animate={spread ? { y: [0, (index - 1) * -7, 0] } : undefined}
+          transition={spread ? { duration: 4, repeat: Infinity, ease: 'easeInOut' } : undefined}
+        >
+          <CubeSlab offset={offset} gradientId={gradientId} />
+        </motion.g>
+      ))}
+    </svg>
+  );
+};
+
+// Image that falls back to a monogram when its URL has expired
+const Thumb = ({ src, name, className = '' }) => {
+  const [failed, setFailed] = useState(false);
+
+  return (
+    <div className={`thumb ${className}`}>
+      {src && !failed ? (
+        <img src={src} alt={name} onError={() => setFailed(true)} />
+      ) : (
+        <span>{name[0]}</span>
+      )}
     </div>
-  </div>
-);
+  );
+};
 
-// App Logo Component - Rounded corners like real app icons
-const AppLogo = ({ colors, icon: Icon }) => (
-  <div 
-    className="w-14 h-14 rounded-2xl flex items-center justify-center shadow-lg"
-    style={{ background: `linear-gradient(135deg, ${colors[0]}, ${colors[1]})` }}
-  >
-    <Icon className="w-7 h-7 text-white" />
-  </div>
-);
+const clients = {
+  mintslip: { name: 'MintSlip', logo: mintslipLogo },
+  expo: { name: 'Expo', logo: 'https://play-lh.googleusercontent.com/algsmuhitlyCU_Yy3IU7-7KYIhCBwx5UJG4Bln-hygBjjlUVCiGo1y8W5JNqYm9WW3s=w480-h960-rw' },
+  cinecast: { name: 'Cinecast', logo: cinecastLogo },
+  urload: { name: 'Urload', logo: urloadLogo },
+};
 
-// Work in progress data with app-style icons - New design
 const workInProgress = [
-  {
-    id: 1,
-    name: "MintSlip",
-    description: "Working with MintSlip to build the fastest, and more robust paystub generator.",
-    status: "CURRENTLY",
-    iconType: "rainbow",
-    iconBg: "linear-gradient(135deg, #3B82F6 0%, #1D4ED8 100%)",
-  },
-  {
-    id: 2,
-    name: "Expo",
-    description: "Partnering with Expo to enhance developer experience and build performance improvements.",
-    status: "CURRENTLY", 
-    iconType: "expo",
-    iconBg: "#000000",
-  },
-  {
-    id: 3,
-    name: "Supreme Detail Studio",
-    description: "Helping Supreme Detail Studio scale their detailing platform to handle in app bookings.",
-    status: "CURRENTLY", 
-    iconType: "swoogo",
-    iconBg: "#F97316",
-  },
+  { client: clients.mintslip, description: 'Working with MintSlip to build the fastest, and more robust paystub generator.' },
+  { client: clients.expo, description: 'Partnering with Expo to enhance developer experience and build performance improvements.' },
+  { client: clients.cinecast, description: 'Building Cinecast, the app that sends video from any site to your TV, from Roku and Fire TV to Chromecast and Apple TV.' },
+  { client: clients.urload, description: 'Building Urload, the all-in-one platform for the trucking industry, connecting carriers and brokers in one seamless system.' },
 ];
 
-// Services data - New design
+const portfolioWork = [
+  { client: clients.mintslip, achievement: 'The best Paystub Generator' },
+  { client: clients.cinecast, achievement: 'Casts to Roku, Fire TV, Chromecast and more' },
+  { client: clients.urload, achievement: 'The smarter load board for carriers and brokers' },
+];
+
 const services = [
-  {
-    label: "FROM 0 TO 1",
-    title: "Build the best app, from scratch",
-    price: "10,000",
-    priceDesc: "USD/month, 3 min."
-  },
-  {
-    label: "ALREADY HAVE AN APP?",
-    title: "Improve your existing app",
-    price: "300",
-    priceDesc: "USD/hour + audit"
-  },
+  { label: 'From 0 to 1', title: 'Build the best app, from scratch', price: '10,000', priceDesc: 'USD/month, 3 min.' },
+  { label: 'Already have an app?', title: 'Improve your existing app', price: '300', priceDesc: 'USD/hour + audit' },
 ];
 
-// Service Card Component with mouse-following gradient
-const ServiceCard = ({ service, index }) => {
-  const cardRef = useRef(null);
-  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
-  const [isHovered, setIsHovered] = useState(false);
+const expertiseAreas = [
+  'React Native', 'Expo', 'TypeScript', 'Node.js', 'GraphQL',
+  'AWS', 'Firebase', 'Redux', 'REST APIs', 'CI/CD', 'App Store', 'Play Store',
+];
 
+const clientNames = ['Coca-Cola', 'Delta', 'Home Depot', 'NCR', 'UPS', 'Mailchimp'];
+
+const teamMembers = [
+  { name: 'Austin', avatar: 'https://media.licdn.com/dms/image/v2/D5603AQEE4HfTuiUTDw/profile-displayphoto-crop_800_800/B56Zor9sa4J4AI-/0/1761674184991?e=1770249600&v=beta&t=62lcyJxrd8bx11gpcWtj-pH-IUCyayJMtiDDF1zGwLs' },
+  { name: 'Jerome', avatar: 'https://media.licdn.com/dms/image/v2/D4D03AQGHsPjpVrGY4A/profile-displayphoto-shrink_800_800/profile-displayphoto-shrink_800_800/0/1731553045462?e=1770249600&v=beta&t=5LHHkhK3goHAo1D3zdAqMeytfCUSzs8rDiKESVXewk4' },
+  { name: 'Mike', avatar: null },
+];
+
+const tabs = [
+  { id: 'home', label: 'Home', icon: Home },
+  { id: 'services', label: 'Services', icon: Layers },
+  { id: 'work', label: 'Work', icon: Briefcase },
+  { id: 'expertise', label: 'Expertise', icon: Cpu },
+  { id: 'about', label: 'About', icon: Users },
+];
+
+const reveal = {
+  initial: { opacity: 0, y: 28, scale: 0.98 },
+  whileInView: { opacity: 1, y: 0, scale: 1 },
+  viewport: { once: true, amount: 0.2 },
+  transition: { type: 'spring', stiffness: 120, damping: 20 },
+};
+
+// Colour field behind the glass: fixed aurora plus crisp spheres that scroll
+// with the page, so the blur has something visible to refract as you move.
+const Ambient = () => {
+  const { scrollYProgress } = useScroll();
+  const y = useTransform(scrollYProgress, [0, 1], ['0%', '-18%']);
+
+  return (
+    <>
+      <div className="ambient" aria-hidden="true">
+        <motion.div className="ambient-drift" style={{ y }}>
+          <span className="orb orb-violet" />
+          <span className="orb orb-blue" />
+          <span className="orb orb-indigo" />
+          <span className="orb orb-lilac" />
+        </motion.div>
+      </div>
+      <div className="spheres" aria-hidden="true">
+        <span className="sphere sphere-1" />
+        <span className="sphere sphere-2" />
+        <span className="sphere sphere-3" />
+        <span className="sphere sphere-4" />
+        <span className="sphere sphere-5" />
+        <span className="sphere sphere-6" />
+        <span className="halo halo-1" />
+        <span className="halo halo-2" />
+      </div>
+    </>
+  );
+};
+
+const LockNotification = ({ icon: Icon, title, detail, delay }) => (
+  <motion.div
+    className="notif"
+    initial={{ opacity: 0, y: 16, scale: 0.94 }}
+    animate={{ opacity: 1, y: 0, scale: 1 }}
+    transition={{ type: 'spring', stiffness: 160, damping: 18, delay }}
+  >
+    <span className="notif-icon"><Icon className="w-4 h-4" /></span>
+    <span className="notif-text">
+      <strong>{title}</strong>
+      <small>{detail}</small>
+    </span>
+    <time>now</time>
+  </motion.div>
+);
+
+const HeroPhone = ({ rotateX, rotateY }) => (
+  <motion.div className="phone-stage" style={{ rotateX, rotateY }}>
+    <div className="phone">
+      <div className="phone-screen">
+        <span className="phone-island" />
+        <div className="phone-time">
+          <small>{new Date().toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric' })}</small>
+          <strong>9:41</strong>
+        </div>
+        <div className="phone-logo">
+          <FlattLogo className="w-full h-full" spread />
+        </div>
+        <div className="phone-notifs">
+          <LockNotification icon={CheckCircle2} title="Build passed" detail="iOS and Android" delay={0.7} />
+          <LockNotification icon={Rocket} title="Ready for release" detail="App Store, Play Store" delay={1} />
+        </div>
+        <div className="phone-dock">
+          <span><ReactNativeIcon className="w-7 h-7" /></span>
+          <span><ExpoIcon className="w-6 h-6" /></span>
+          <span><Code2 className="w-6 h-6" /></span>
+          <span><Smartphone className="w-6 h-6" /></span>
+        </div>
+      </div>
+    </div>
+    <motion.div
+      className="float-chip float-chip-a"
+      animate={{ y: [0, -10, 0] }}
+      transition={{ duration: 5, repeat: Infinity, ease: 'easeInOut' }}
+    >
+      <strong>10</strong> years
+    </motion.div>
+    <motion.div
+      className="float-chip float-chip-b"
+      animate={{ y: [0, 10, 0] }}
+      transition={{ duration: 6, repeat: Infinity, ease: 'easeInOut', delay: 0.6 }}
+    >
+      <strong>35+</strong> apps
+    </motion.div>
+  </motion.div>
+);
+
+const ServiceCard = ({ service, index, onBook }) => {
+  // Written straight to CSS variables so the specular highlight never re-renders React
   const handleMouseMove = (e) => {
-    if (!cardRef.current) return;
-    const rect = cardRef.current.getBoundingClientRect();
-    const x = e.clientX - rect.left;
-    const y = e.clientY - rect.top;
-    setMousePosition({ x, y });
+    const rect = e.currentTarget.getBoundingClientRect();
+    e.currentTarget.style.setProperty('--mx', `${e.clientX - rect.left}px`);
+    e.currentTarget.style.setProperty('--my', `${e.clientY - rect.top}px`);
   };
 
   return (
     <motion.div
-      ref={cardRef}
-      className="service-card-new"
-      initial={{ opacity: 0, y: 30 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true }}
-      transition={{ delay: index * 0.15 }}
+      className="glass service-card"
       onMouseMove={handleMouseMove}
-      onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => setIsHovered(false)}
+      {...reveal}
+      transition={{ ...reveal.transition, delay: index * 0.1 }}
       data-testid={`service-card-${index}`}
     >
-      {/* Gradient overlay that follows cursor */}
-      <div 
-        className="service-card-gradient"
-        style={{
-          opacity: isHovered ? 1 : 0,
-          background: `radial-gradient(600px circle at ${mousePosition.x}px ${mousePosition.y}px, rgba(59, 130, 246, 0.15), transparent 40%)`
-        }}
-      />
-      
-      {/* Border gradient effect */}
-      <div 
-        className="service-card-border-gradient"
-        style={{
-          opacity: isHovered ? 1 : 0,
-          background: `radial-gradient(400px circle at ${mousePosition.x}px ${mousePosition.y}px, rgba(59, 130, 246, 0.4), transparent 40%)`
-        }}
-      />
-      
-      <div className="service-card-content">
-        <span className="service-label">{service.label}</span>
-        <h3 className="service-title-new">{service.title}</h3>
-        
-        <div className="service-footer">
-          <div className="service-price-container">
-            <span className="service-price-symbol">$</span>
-            <span className="service-price-value">{service.price}</span>
-            <span className="service-price-desc">{service.priceDesc}</span>
-          </div>
-          <button className="service-add-btn" data-testid={`service-add-btn-${index}`}>
-            <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth="1.5">
-              <circle cx="10" cy="10" r="8" />
-              <line x1="10" y1="6" x2="10" y2="14" />
-              <line x1="6" y1="10" x2="14" y2="10" />
-            </svg>
-          </button>
+      <span className="service-label">{service.label}</span>
+      <h3>{service.title}</h3>
+      <div className="service-footer">
+        <div>
+          <p className="service-price">${service.price}</p>
+          <p className="service-price-desc">{service.priceDesc}</p>
         </div>
+        <button
+          className="glass-icon-btn"
+          onClick={onBook}
+          aria-label={`Book a call about: ${service.title}`}
+          data-testid={`service-add-btn-${index}`}
+        >
+          <Plus className="w-5 h-5" />
+        </button>
       </div>
     </motion.div>
   );
 };
 
-// Portfolio work data with styled icons
-const portfolioWork = [
-  { 
-    name: "Expo", 
-    achievement: "Recommending us since 2022", 
-    iconType: "expo",
-    iconBg: "#000000",
-    iconContent: "∧"
-  },
-  { 
-    name: "MintSlip", 
-    achievement: "The best Paystub Generator", 
-    iconType: "rainbow",
-    iconBg: "#3B82F6",
-    iconContent: "🌈"
-  },
-  { 
-    name: "Supreme Detail Studio", 
-    achievement: "Over 2k clients acquired", 
-    iconType: "swoogo",
-    iconBg: "#F97316",
-    iconContent: "go"
-  },
-];
+const SectionTitle = ({ title, note, children }) => (
+  <div className="section-title">
+    <div>
+      <h2>{title}</h2>
+      {note && <p>{note}</p>}
+    </div>
+    {children}
+  </div>
+);
 
-// Expertise areas
-const expertiseAreas = [
-  "React Native", "Expo", "TypeScript", "Node.js", "GraphQL", 
-  "AWS", "Firebase", "Redux", "REST APIs", "CI/CD", "App Store", "Play Store"
-];
+// iOS-style sheet. The scrim is a sibling, not a parent, because a parent with
+// backdrop-filter would stop the sheet from blurring the page behind it.
+const DiscoverySheet = ({ isOpen, onClose }) => (
+  <AnimatePresence>
+    {isOpen && (
+      <>
+        <motion.div
+          key="scrim"
+          className="sheet-scrim"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          onClick={onClose}
+        />
+        <div key="wrap" className="sheet-wrap">
+          <motion.div
+            className="glass sheet"
+            role="dialog"
+            aria-modal="true"
+            aria-label="Book a Discovery Call"
+            initial={{ y: 60, scale: 0.95, opacity: 0 }}
+            animate={{ y: 0, scale: 1, opacity: 1 }}
+            exit={{ y: 60, scale: 0.95, opacity: 0 }}
+            transition={{ type: 'spring', stiffness: 260, damping: 26 }}
+          >
+            <span className="sheet-grabber" />
+            <div className="sheet-head">
+              <h2>Book a Discovery Call</h2>
+              <button className="glass-icon-btn" onClick={onClose} aria-label="Close" data-testid="close-modal-btn">
+                <X className="w-5 h-5" />
+              </button>
+            </div>
+            <p className="sheet-copy">
+              Let's discuss your project! Choose how you'd like to get in touch with our team:
+            </p>
+            <div className="sheet-actions">
+              <button
+                onClick={() => { window.location.href = 'mailto:hello@flattapps.com?subject=Discovery%20Call%20Request&body=Hi%20Flatt%20Apps%20Team,%0A%0AI%27d%20like%20to%20schedule%20a%20discovery%20call%20to%20discuss%20my%20project.%0A%0AProject%20Type:%0ACompany:%0ABrief%20Description:%0A%0AThanks!'; }}
+                className="cta-button"
+                data-testid="email-cta-btn"
+              >
+                <Mail className="w-5 h-5" />
+                Send us an Email
+              </button>
+              <button
+                onClick={() => window.open('https://calendly.com/flattapps', '_blank')}
+                className="glass-button"
+                data-testid="calendly-cta-btn"
+              >
+                <ExternalLink className="w-5 h-5" />
+                Schedule on Calendly
+              </button>
+            </div>
+            <p className="sheet-foot">
+              Or reach us directly at <a href="mailto:hello@flattapps.com">hello@flattapps.com</a>
+            </p>
+          </motion.div>
+        </div>
+      </>
+    )}
+  </AnimatePresence>
+);
 
-// Team members
-const teamMembers = [
-  { name: "Austin", avatar: "https://media.licdn.com/dms/image/v2/D5603AQEE4HfTuiUTDw/profile-displayphoto-crop_800_800/B56Zor9sa4J4AI-/0/1761674184991?e=1770249600&v=beta&t=62lcyJxrd8bx11gpcWtj-pH-IUCyayJMtiDDF1zGwLs" },
-  { name: "Jerome", avatar: "https://media.licdn.com/dms/image/v2/D4D03AQGHsPjpVrGY4A/profile-displayphoto-shrink_800_800/profile-displayphoto-shrink_800_800/0/1731553045462?e=1770249600&v=beta&t=5LHHkhK3goHAo1D3zdAqMeytfCUSzs8rDiKESVXewk4" },
-  { name: "Mike", avatar: "👨‍🎨" },
-];
-
-// Discovery Call Modal - Opens email client
-const DiscoveryModal = ({ isOpen, onClose }) => {
-  const handleEmailClick = () => {
-    window.location.href = 'mailto:hello@appmakersatl.com?subject=Discovery%20Call%20Request&body=Hi%20AppMakersATL%20Team,%0A%0AI%27d%20like%20to%20schedule%20a%20discovery%20call%20to%20discuss%20my%20project.%0A%0AProject%20Type:%0ACompany:%0ABrief%20Description:%0A%0AThanks!';
-  };
-
-  const handleCalendlyClick = () => {
-    // Opens calendly or any scheduling link - replace with actual link
-    window.open('https://calendly.com/appmakersatl', '_blank');
-  };
-
-  if (!isOpen) return null;
-
-  return (
-    <AnimatePresence>
-      <motion.div 
-        className="modal-overlay"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        exit={{ opacity: 0 }}
-        onClick={onClose}
-      >
-        <motion.div 
-          className="modal-content"
-          initial={{ scale: 0.9, opacity: 0 }}
-          animate={{ scale: 1, opacity: 1 }}
-          exit={{ scale: 0.9, opacity: 0 }}
-          onClick={e => e.stopPropagation()}
-        >
-          <div className="flex justify-between items-center mb-6">
-            <h2 className="text-2xl font-bold text-white">Book a Discovery Call</h2>
-            <button onClick={onClose} className="text-gray-400 hover:text-white transition-colors" data-testid="close-modal-btn">
-              <X className="w-6 h-6" />
-            </button>
-          </div>
-
-          <p className="text-gray-400 mb-6">
-            Let's discuss your project! Choose how you'd like to get in touch with our Atlanta team:
-          </p>
-
-          <div className="space-y-4">
-            <button 
-              onClick={handleEmailClick}
-              className="cta-button w-full justify-center"
-              data-testid="email-cta-btn"
-            >
-              <Mail className="w-5 h-5" />
-              Send us an Email
-            </button>
-            
-            <button 
-              onClick={handleCalendlyClick}
-              className="secondary-button w-full justify-center"
-              data-testid="calendly-cta-btn"
-            >
-              <ExternalLink className="w-5 h-5" />
-              Schedule on Calendly
-            </button>
-          </div>
-
-          <div className="mt-6 pt-6 border-t border-white/10 text-center">
-            <p className="text-gray-500 text-sm mb-2">Or reach us directly at:</p>
-            <a href="mailto:hello@appmakersatl.com" className="text-blue-400 hover:text-blue-300 transition-colors">
-              hello@appmakersatl.com
-            </a>
-          </div>
-        </motion.div>
-      </motion.div>
-    </AnimatePresence>
-  );
-};
-
-// Main App Component
 function App() {
   const [showModal, setShowModal] = useState(false);
-  const [showAllWork, setShowAllWork] = useState(false);
   const [activeSection, setActiveSection] = useState('home');
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [tabsCompact, setTabsCompact] = useState(false);
   const [currentProjectIndex, setCurrentProjectIndex] = useState(0);
-  
+
   const sectionsRef = {
     home: useRef(null),
     services: useRef(null),
     work: useRef(null),
     expertise: useRef(null),
-    about: useRef(null)
+    about: useRef(null),
   };
 
-  // Auto-rotate work in progress projects
+  const pointerX = useMotionValue(0);
+  const pointerY = useMotionValue(0);
+  const spring = { stiffness: 80, damping: 18 };
+  const rotateY = useSpring(useTransform(pointerX, [-0.5, 0.5], [-14, 8]), spring);
+  const rotateX = useSpring(useTransform(pointerY, [-0.5, 0.5], [8, -8]), spring);
+
+  const handleHeroPointer = (e) => {
+    const rect = e.currentTarget.getBoundingClientRect();
+    pointerX.set((e.clientX - rect.left) / rect.width - 0.5);
+    pointerY.set((e.clientY - rect.top) / rect.height - 0.5);
+  };
+
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrentProjectIndex((prev) => (prev + 1) % workInProgress.length);
-    }, 4000); // Change every 4 seconds
+    }, 4000);
     return () => clearInterval(interval);
   }, []);
 
-  // Scroll observer
   useEffect(() => {
+    let lastY = window.scrollY;
+
     const handleScroll = () => {
-      const scrollPosition = window.scrollY + 200;
-      
+      const y = window.scrollY;
+      const scrollPosition = y + 200;
+
       Object.entries(sectionsRef).forEach(([key, ref]) => {
         if (ref.current) {
           const { offsetTop, offsetHeight } = ref.current;
@@ -332,516 +397,313 @@ function App() {
           }
         }
       });
+
+      // Like the iOS tab bar: tuck the labels away while reading, bring them back on scroll up
+      if (Math.abs(y - lastY) > 6) {
+        setTabsCompact(y > lastY && y > 120);
+        lastY = y;
+      }
     };
 
-    window.addEventListener('scroll', handleScroll);
+    window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
+    // sectionsRef holds stable refs
   }, []);
 
   const scrollToSection = (sectionId) => {
     sectionsRef[sectionId]?.current?.scrollIntoView({ behavior: 'smooth' });
-    setMobileMenuOpen(false);
   };
 
-  const displayedWork = showAllWork ? portfolioWork : portfolioWork.slice(0, 6);
+  const openBooking = () => setShowModal(true);
+  const activeTabIndex = tabs.findIndex((tab) => tab.id === activeSection);
+  const currentProject = workInProgress[currentProjectIndex];
 
   return (
+    <MotionConfig reducedMotion="user">
     <div className="app-container">
-      {/* Noise overlay for texture */}
+      <Ambient />
       <div className="noise-overlay"></div>
 
-      {/* Top header */}
-      <header className="fixed top-0 left-0 right-0 z-50 glass overflow-hidden">
-        <div className="max-w-7xl mx-auto px-3 py-3 flex items-center justify-between">
-          <motion.div 
-            className="flex items-center gap-2 flex-shrink-0"
-            initial={{ opacity: 0, x: -20 }}
-            animate={{ opacity: 1, x: 0 }}
-          >
-            <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center flex-shrink-0">
-              <span className="text-white font-bold text-sm">A</span>
-            </div>
-            <span className="text-white font-semibold text-base md:text-xl">AppMakersATL</span>
-          </motion.div>
-
-          {/* Desktop nav */}
-          <nav className="hidden md:flex items-center gap-6">
-            {['Services', 'Work', 'Expertise', 'About'].map((item) => (
-              <button
-                key={item}
-                onClick={() => scrollToSection(item.toLowerCase())}
-                className={`nav-link ${activeSection === item.toLowerCase() ? 'active' : ''}`}
-                data-testid={`nav-${item.toLowerCase()}`}
-              >
-                {item}
-              </button>
-            ))}
-          </nav>
-
-          {/* Right side buttons */}
-          <div className="flex items-center gap-2 flex-shrink-0">
-            {/* Mobile CTA button - smaller */}
-            <button 
-              className="md:hidden cta-button-mobile"
-              onClick={() => setShowModal(true)}
-              data-testid="mobile-header-cta-btn"
-            >
-              <ArrowRight className="w-3 h-3" />
-              <span className="text-xs whitespace-nowrap">Book a call</span>
-            </button>
-
-            {/* Mobile menu button */}
-            <button 
-              className="md:hidden text-white p-1"
-              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              data-testid="mobile-menu-btn"
-            >
-              {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
-            </button>
-
-            {/* CTA button desktop only */}
-            <motion.button 
-              className="cta-button desktop-only-cta"
-              onClick={() => setShowModal(true)}
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              data-testid="header-cta-btn"
-            >
-              <ArrowRight className="w-5 h-5" />
-              Book a discovery call
-            </motion.button>
-          </div>
+      <header className="top-bar-wrap">
+        <div className="glass top-bar">
+          <button className="brand" onClick={() => scrollToSection('home')} data-testid="brand-home-btn">
+            <FlattLogo className="w-8 h-8 flex-shrink-0" />
+            <span>Flatt Apps</span>
+          </button>
+          <button className="cta-button cta-compact" onClick={openBooking} data-testid="header-cta-btn">
+            <span className="hidden md:inline">Book a discovery call</span>
+            <span className="md:hidden">Book a call</span>
+            <ArrowRight className="w-4 h-4" />
+          </button>
         </div>
-
-        {/* Mobile menu */}
-        <AnimatePresence>
-          {mobileMenuOpen && (
-            <motion.div
-              className="md:hidden glass border-t border-white/10"
-              initial={{ height: 0, opacity: 0 }}
-              animate={{ height: 'auto', opacity: 1 }}
-              exit={{ height: 0, opacity: 0 }}
-            >
-              <div className="px-4 py-4 space-y-2">
-                {['Services', 'Work', 'Expertise', 'About'].map((item) => (
-                  <button
-                    key={item}
-                    onClick={() => scrollToSection(item.toLowerCase())}
-                    className="block w-full text-left py-2 text-gray-300 hover:text-white transition-colors"
-                    data-testid={`mobile-nav-${item.toLowerCase()}`}
-                  >
-                    {item}
-                  </button>
-                ))}
-                <button 
-                  className="secondary-button w-full justify-center mt-4 text-sm"
-                  onClick={() => { setShowModal(true); setMobileMenuOpen(false); }}
-                  data-testid="mobile-cta-btn"
-                >
-                  <ArrowRight className="w-4 h-4" />
-                  Book a discovery call
-                </button>
-              </div>
-            </motion.div>
-          )}
-        </AnimatePresence>
       </header>
 
-      {/* Hero Section */}
-      <section ref={sectionsRef.home} className="min-h-screen flex flex-col justify-center px-4 pt-20" data-testid="hero-section">
-        <div className="max-w-7xl mx-auto w-full">
+      <main className="page">
+        <section ref={sectionsRef.home} className="hero" onMouseMove={handleHeroPointer} data-testid="hero-section">
           <motion.div
+            className="hero-copy"
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
-            className="text-center"
           >
-            {/* Animated graphic */}
-            <ConcentricCircles />
+            <span className="hero-eyebrow">
+              <span className="live-dot" />
+              iOS · Android · Cross-platform
+            </span>
 
-            {/* Main headline */}
-            <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold text-white mt-12 mb-6 leading-tight">
-              Atlanta's Premier{' '}
-              <span className="gradient-text">React Native</span>{' '}
-              Studio
+            <h1>
+              Your Global <span className="gradient-text">React Native</span> Studio
             </h1>
-            
-            <p className="text-xl md:text-2xl text-gray-400 mb-4">
-              Powered by <span className="text-white font-semibold">Expo</span>
-            </p>
 
-            <p className="text-gray-500 max-w-2xl mx-auto mb-10 text-lg">
-              AppMakersATL is Atlanta, Georgia's leading mobile app development studio. 
+            <p className="hero-sub">Powered by <strong>Expo</strong></p>
+
+            <p className="hero-body">
+              Flatt Apps is a mobile app development studio working with clients around the world.
               We build high-performance iOS and Android apps that users love and businesses depend on.
             </p>
 
-            {/* CTA */}
-            <motion.button 
-              className="cta-button mx-auto"
-              onClick={() => setShowModal(true)}
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              data-testid="hero-cta-btn"
-            >
-              <ArrowRight className="w-5 h-5" />
-              Book a discovery call
-            </motion.button>
-
-            <p className="mt-4 text-gray-500">
-              <Mail className="w-4 h-4 inline mr-2" />
-              hello@appmakersatl.com
-            </p>
+            <div className="hero-actions">
+              <button className="cta-button" onClick={openBooking} data-testid="hero-cta-btn">
+                Book a discovery call
+                <ArrowRight className="w-5 h-5" />
+              </button>
+              <a className="glass-button" href="mailto:hello@flattapps.com" data-testid="hero-email-link">
+                <Mail className="w-4 h-4" />
+                hello@flattapps.com
+              </a>
+            </div>
           </motion.div>
-        </div>
-      </section>
 
-      {/* Work in Progress Section */}
-      <section className="py-20 px-4" data-testid="work-in-progress-section">
-        <div className="max-w-4xl mx-auto">
-          <div className="section-header">
-                <span className="text-gray-500 text-2xl font-light">#</span>
-                <h2 className="text-3xl md:text-4xl font-bold text-white">Work In Progress</h2>
-            <p className="text-gray-500 text-sm mt-1">(that we can talk about)</p>
-          </div>
+          <motion.div
+            className="hero-device"
+            initial={{ opacity: 0, y: 50, scale: 0.94 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            transition={{ type: 'spring', stiffness: 70, damping: 16, delay: 0.15 }}
+          >
+            <HeroPhone rotateX={rotateX} rotateY={rotateY} />
+          </motion.div>
+        </section>
 
-          {/* Large transitioning card */}
-          <div className="wip-card" data-testid="work-progress-card">
+        <section className="section" data-testid="work-in-progress-section">
+          <SectionTitle title="Work In Progress" note="(that we can talk about)" />
+
+          <motion.div className="glass wip-card" {...reveal} data-testid="work-progress-card">
             <AnimatePresence mode="wait">
               <motion.div
                 key={currentProjectIndex}
-                className="wip-card-inner"
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                exit={{ opacity: 0 }}
-                transition={{ duration: 0.6, ease: "easeInOut" }}
+                className="wip-inner"
+                initial={{ opacity: 0, x: 24, filter: 'blur(10px)' }}
+                animate={{ opacity: 1, x: 0, filter: 'blur(0px)' }}
+                exit={{ opacity: 0, x: -24, filter: 'blur(10px)' }}
+                transition={{ duration: 0.45, ease: 'easeInOut' }}
               >
-                {/* Large App Icon */}
-                <div className="wip-icon-container">
-                  {workInProgress[currentProjectIndex].iconType === 'rainbow' && (
-                    <div className="wip-icon wip-icon-swoogo">
-                    <img src='https://play-lh.googleusercontent.com/9n4kPRKNBLDlh00B_91Okqe11DjBS6Nz_v02MmtJM9pPqlVAYqxx8QL7iFh7xLP-yglrtj7wLKR3M_nGpJwC-Ew=w480-h960-rw' />
-                    </div>
-                  )}
-                  {workInProgress[currentProjectIndex].iconType === 'expo' && (
-                    <div className="wip-icon wip-icon-swoogo">
-                    <img src='https://play-lh.googleusercontent.com/algsmuhitlyCU_Yy3IU7-7KYIhCBwx5UJG4Bln-hygBjjlUVCiGo1y8W5JNqYm9WW3s=w480-h960-rw' />
-                    </div>
-                  )}
-                  {workInProgress[currentProjectIndex].iconType === 'swoogo' && (
-                    <div className="wip-icon wip-icon-swoogo">
-                    <img src='https://scontent-atl3-1.xx.fbcdn.net/v/t39.30808-6/448136429_361606140361411_3051297350919406801_n.jpg?_nc_cat=100&ccb=1-7&_nc_sid=6ee11a&_nc_ohc=NpjPSRCW3lAQ7kNvwHxk4I3&_nc_oc=Adkfun6pwjqr2zJRUxs83MCD_wN7tYWzUA9KlSCWGq9MDxg10rHA-yaC7LxWOLbj4ud_sT80lfUI5Z3TCdTXvV3G&_nc_zt=23&_nc_ht=scontent-atl3-1.xx&_nc_gid=OWiuRa-9sEeIUKT2GqRxNg&oh=00_Afp0shIB-qHjDdI67Sw_5ukeHq6JTcIP4KSX3H8PkHLGvA&oe=6971FFE9' />
-                    </div>
-                  )}
-                </div>
-
-                {/* Content */}
-                <div className="wip-content">
-                  <div className="wip-status">
-                    <span className="breathing-dot"></span>
-                    <span className="wip-status-text">{workInProgress[currentProjectIndex].status}</span>
-                  </div>
-                  <p className="wip-description">
-                    {workInProgress[currentProjectIndex].description}
-                  </p>
+                <Thumb src={currentProject.client.logo} name={currentProject.client.name} className="thumb-xl" />
+                <div>
+                  <span className="wip-status">
+                    <span className="live-dot" />
+                    Currently
+                  </span>
+                  <p className="wip-description">{currentProject.description}</p>
                 </div>
               </motion.div>
             </AnimatePresence>
 
-            {/* Progress dots */}
-            <div className="wip-dots">
-              {workInProgress.map((_, index) => (
+            <div className="page-control">
+              {workInProgress.map((project, index) => (
                 <button
-                  key={index}
+                  key={project.client.name}
                   onClick={() => setCurrentProjectIndex(index)}
-                  className={`wip-dot ${index === currentProjectIndex ? 'active' : ''}`}
+                  className={index === currentProjectIndex ? 'active' : ''}
+                  aria-label={`Show ${project.client.name}`}
                   data-testid={`progress-dot-${index}`}
                 />
               ))}
             </div>
-          </div>
-        </div>
-      </section>
+          </motion.div>
+        </section>
 
-      {/* Services Section */}
-      <section ref={sectionsRef.services} className="py-20 px-4 bg-dark-800/50" data-testid="services-section">
-        <div className="max-w-4xl mx-auto">
-          <div className="section-header">
-                <span className="text-gray-500 text-2xl font-light">#</span>
-                <h2 className="text-3xl md:text-4xl font-bold text-white">Services</h2>
-          </div>
-
-          <div className="grid md:grid-cols-2 gap-6">
+        <section ref={sectionsRef.services} className="section" data-testid="services-section">
+          <SectionTitle title="Services" />
+          <div className="service-grid">
             {services.map((service, index) => (
-              <ServiceCard key={index} service={service} index={index} />
+              <ServiceCard key={service.title} service={service} index={index} onBook={openBooking} />
             ))}
           </div>
-        </div>
-      </section>
+        </section>
 
-      {/* Portfolio Work Section */}
-      <section ref={sectionsRef.work} className="py-20 px-4" data-testid="portfolio-section">
-        <div className="max-w-4xl mx-auto">
-          {/* Section header with stats */}
-          <div className="flex items-start justify-between mb-10">
-            <div>
-              <div className="flex items-center gap-2">
-                <span className="text-gray-500 text-2xl font-light">#</span>
-                <h2 className="text-3xl md:text-4xl font-bold text-white">Work</h2>
-              </div>
-              <p className="text-gray-500 text-sm mt-1">(that we can talk about)</p>
-            </div>
-            <div className="text-right">
-              <span className="text-gray-400 text-sm tracking-wider">10 YEARS, 35+ APPS</span>
-            </div>
-          </div>
+        <section ref={sectionsRef.work} className="section" data-testid="portfolio-section">
+          <SectionTitle title="Work" note="(that we can talk about)">
+            <span className="section-stat">10 years, 35+ apps</span>
+          </SectionTitle>
 
-          {/* Work list items */}
-          <div className="work-list">
-            {displayedWork.map((work, index) => (
-              <motion.div
-                key={index}
-                className="work-list-item"
-                initial={{ opacity: 0, y: 10 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: index * 0.08 }}
-                data-testid={`portfolio-card-${index}`}
-              >
-                <div className="flex items-center gap-4">
-                  {/* Custom icon based on type */}
-                  {work.iconType === 'expo' && (
-                    <div className="work-icon work-icon-expo">
-                      <img src='https://play-lh.googleusercontent.com/algsmuhitlyCU_Yy3IU7-7KYIhCBwx5UJG4Bln-hygBjjlUVCiGo1y8W5JNqYm9WW3s=w480-h960-rw' />
-                    </div>
-                  )}
-                  {work.iconType === 'rainbow' && (
-                    <div className="work-icon work-icon-rainbow">
-                      <img src='https://play-lh.googleusercontent.com/9n4kPRKNBLDlh00B_91Okqe11DjBS6Nz_v02MmtJM9pPqlVAYqxx8QL7iFh7xLP-yglrtj7wLKR3M_nGpJwC-Ew=w480-h960-rw' />
-                    </div>
-                  )}
-                  {work.iconType === 'swoogo' && (
-                    <div className="work-icon work-icon-swoogo">
-                      <img src='https://scontent-atl3-1.xx.fbcdn.net/v/t39.30808-6/448136429_361606140361411_3051297350919406801_n.jpg?_nc_cat=100&ccb=1-7&_nc_sid=6ee11a&_nc_ohc=NpjPSRCW3lAQ7kNvwHxk4I3&_nc_oc=Adkfun6pwjqr2zJRUxs83MCD_wN7tYWzUA9KlSCWGq9MDxg10rHA-yaC7LxWOLbj4ud_sT80lfUI5Z3TCdTXvV3G&_nc_zt=23&_nc_ht=scontent-atl3-1.xx&_nc_gid=OWiuRa-9sEeIUKT2GqRxNg&oh=00_Afp0shIB-qHjDdI67Sw_5ukeHq6JTcIP4KSX3H8PkHLGvA&oe=6971FFE9' />
-                    </div>
-                  )}
-                  
-                  {/* Company name */}
-                  <h4 className="text-white font-semibold text-lg">{work.name}</h4>
-                  
-                  {/* Achievement badge */}
-                  <span className="work-achievement-badge">{work.achievement}</span>
+          <motion.div className="glass inset-list" {...reveal}>
+            {portfolioWork.map((work, index) => (
+              <div key={work.client.name} className="inset-row" data-testid={`portfolio-card-${index}`}>
+                <Thumb src={work.client.logo} name={work.client.name} />
+                <div className="inset-row-text">
+                  <h4>{work.client.name}</h4>
+                  <p>{work.achievement}</p>
                 </div>
-              </motion.div>
-            ))}
-          </div>
-
-          {/* Show more button */}
-          <div className="text-center mt-10">
-            <button
-              onClick={() => setShowAllWork(!showAllWork)}
-              className="show-more-btn"
-              data-testid="show-more-work-btn"
-            >
-              {showAllWork ? 'Show less' : 'Show more'}
-            </button>
-          </div>
-        </div>
-      </section>
-
-      {/* Expertise Section */}
-      <section ref={sectionsRef.expertise} className="py-20 px-4 bg-dark-800/50" data-testid="expertise-section">
-        <div className="max-w-4xl mx-auto">
-          <div className="section-header">
-                <span className="text-gray-500 text-2xl font-light">#</span>
-                <h2 className="text-3xl md:text-4xl font-bold text-white">Expertise</h2>
-          </div>
-
-          <p className="text-gray-400 max-w-3xl mb-10 text-lg">
-            Based in Atlanta, Georgia, we've partnered with leading brands across the Southeast 
-            and nationwide. Our expertise spans the entire React Native and mobile app development 
-            ecosystem, delivering scalable solutions for Georgia businesses and beyond.
-          </p>
-
-          <div className="flex flex-wrap gap-3 mb-12">
-            {expertiseAreas.map((area, index) => (
-              <motion.span
-                key={index}
-                className="expertise-tag"
-                initial={{ opacity: 0, y: 10 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: index * 0.05 }}
-                data-testid={`expertise-tag-${index}`}
-              >
-                {area}
-              </motion.span>
-            ))}
-          </div>
-
-          {/* Client logos placeholder */}
-          <div className="grid grid-cols-3 md:grid-cols-6 gap-8 items-center opacity-50">
-            {['Coca-Cola', 'Delta', 'Home Depot', 'NCR', 'UPS', 'Mailchimp'].map((brand, i) => (
-              <div key={i} className="text-center text-gray-500 font-medium">
-                {brand}
+                <ChevronRight className="w-5 h-5 inset-row-chevron" />
               </div>
             ))}
-          </div>
-        </div>
-      </section>
+          </motion.div>
+        </section>
 
-      {/* About Section */}
-      <section ref={sectionsRef.about} className="py-20 px-4" data-testid="about-section">
-        <div className="max-w-4xl mx-auto">
-          <div className="section-header">
-                <span className="text-gray-500 text-2xl font-light">#</span>
-                <h2 className="text-3xl md:text-4xl font-bold text-white">About</h2>
-          </div>
+        <section ref={sectionsRef.expertise} className="section" data-testid="expertise-section">
+          <SectionTitle title="Expertise" />
 
-          <div className="grid md:grid-cols-2 gap-12">
-            <div>
-              <p className="text-gray-400 text-lg mb-6">
-                Founded in Atlanta, Georgia, AppMakersATL started as a small team of passionate 
-                developers in the heart of the city's thriving tech scene. Today, we're the 
-                go-to React Native development studio for startups and Fortune 500 companies 
-                throughout the Atlanta metro area and across the Southeast.
+          <motion.div className="glass panel" {...reveal}>
+            <p className="panel-copy">
+              We've partnered with leading brands around the world. Our expertise spans the entire
+              React Native and mobile app development ecosystem, delivering scalable solutions for
+              businesses everywhere.
+            </p>
+
+            <div className="chip-row">
+              {expertiseAreas.map((area, index) => (
+                <span key={area} className="chip" data-testid={`expertise-tag-${index}`}>{area}</span>
+              ))}
+            </div>
+
+            <div className="client-row">
+              {clientNames.map((brand) => <span key={brand}>{brand}</span>)}
+            </div>
+          </motion.div>
+        </section>
+
+        <section ref={sectionsRef.about} className="section" data-testid="about-section">
+          <SectionTitle title="About" />
+
+          <div className="about-grid">
+            <motion.div className="glass panel" {...reveal}>
+              <p className="panel-copy">
+                Founded in Atlanta, Flatt Apps started as a small team of passionate developers.
+                Today, we're the go-to React Native development studio for startups and
+                Fortune 500 companies around the world.
               </p>
-              <p className="text-gray-400 text-lg mb-6">
-                Our mission is simple: build mobile apps that Atlanta businesses and users love. 
-                We obsess over performance, user experience, and code quality because we know 
+              <p className="panel-copy">
+                Our mission is simple: build mobile apps that businesses and users love.
+                We obsess over performance, user experience, and code quality because we know
                 these details make the difference between a good app and a great one.
               </p>
-              <p className="text-white text-xl font-medium">
-                Atlanta's trusted partner for mobile app development.
-              </p>
-            </div>
+              <p className="panel-lead">Your trusted partner for mobile app development, wherever you are.</p>
+            </motion.div>
 
-            {/* Team avatars */}
-            <div>
-              <h3 className="text-lg font-semibold text-white mb-6">Meet the Team</h3>
-              <div className="flex flex-wrap gap-4">
+            <motion.div className="glass panel" {...reveal}>
+              <h3 className="panel-title">Meet the Team</h3>
+              <div className="team-list">
                 {teamMembers.map((member, index) => (
-                  <motion.div
-                    key={index}
-                    className="team-avatar flex items-center justify-center text-3xl bg-dark-700"
-                    whileHover={{ scale: 1.1 }}
-                    data-testid={`team-member-${index}`}
-                  >
-                    <img src={member.avatar} />
-                  </motion.div>
+                  <div key={member.name} className="team-row" data-testid={`team-member-${index}`}>
+                    <Thumb src={member.avatar} name={member.name} className="thumb-round" />
+                    <span>{member.name}</span>
+                  </div>
                 ))}
               </div>
-            </div>
+            </motion.div>
           </div>
-        </div>
-      </section>
+        </section>
 
-      {/* Open Source Section */}
-      <section className="py-20 px-4 bg-dark-800/50" data-testid="open-source-section">
-        <div className="max-w-7xl mx-auto text-center">
-          <div className="section-header justify-center">
-                <span className="text-gray-500 text-2xl font-light">#</span>
-                <h2 className="text-3xl md:text-4xl font-bold text-white">Open Source</h2>
-          </div>
-          <p className="text-gray-400 max-w-2xl mx-auto mb-8">
-            We believe in giving back to the tech community and beyond. 
-            Check out our open source contributions and projects on GitHub.
-          </p>
-          <a 
-            href="https://github.com/appmakersatl" 
-            target="_blank" 
-            rel="noopener noreferrer"
-            className="secondary-button inline-flex"
-            data-testid="github-link"
-          >
-            <Github className="w-5 h-5" />
-            View on GitHub
-            <ExternalLink className="w-4 h-4" />
-          </a>
-        </div>
-      </section>
-
-      {/* Footer */}
-      <footer className="py-16 px-4 border-t border-white/5" data-testid="footer">
-        <div className="max-w-7xl mx-auto">
-          <div className="grid md:grid-cols-4 gap-8 mb-12">
+        <section className="section" data-testid="open-source-section">
+          <motion.div className="glass banner" {...reveal}>
             <div>
-              <div className="flex items-center gap-2 mb-4">
-                <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center">
-                  <span className="text-white font-bold text-lg">A</span>
+              <h2>Open Source</h2>
+              <p>
+                We believe in giving back to the tech community and beyond.
+                Check out our open source contributions and projects on GitHub.
+              </p>
+            </div>
+            <a
+              href="https://github.com/flattapps"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="glass-button"
+              data-testid="github-link"
+            >
+              <Github className="w-5 h-5" />
+              View on GitHub
+              <ExternalLink className="w-4 h-4" />
+            </a>
+          </motion.div>
+        </section>
+
+        <footer className="section footer" data-testid="footer">
+          <div className="glass footer-card">
+            <div className="footer-grid">
+              <div>
+                <div className="brand footer-brand">
+                  <FlattLogo className="w-10 h-10 flex-shrink-0" />
+                  <span>Flatt Apps</span>
                 </div>
-                <span className="text-white font-semibold text-xl">AppMakersATL</span>
+                <p>A global React Native and mobile app development studio.</p>
+                <p className="footer-fine">
+                  Serving startups and enterprises around the world.
+                </p>
               </div>
-              <p className="text-gray-500">
-                Atlanta, Georgia's premier React Native and mobile app development studio.
-              </p>
-              <p className="text-gray-600 text-sm mt-2">
-                Serving Atlanta, Midtown, Buckhead, Decatur, Sandy Springs, and the greater Georgia metro area.
-              </p>
-            </div>
 
-            <div>
-              <h4 className="text-white font-semibold mb-4">Contact</h4>
-              <p className="text-gray-500 mb-2">hello@appmakersatl.com</p>
-              <p className="text-gray-500 mb-2">projects@appmakersatl.com</p>
-              <p className="text-gray-600 text-sm mt-3">
-                📍 Atlanta, GA 30303
-              </p>
-            </div>
+              <div>
+                <h4>Contact</h4>
+                <p>hello@flattapps.com</p>
+                <p>projects@flattapps.com</p>
+                <p className="footer-fine footer-place"><MapPin className="w-4 h-4" /> Based in Atlanta, GA</p>
+              </div>
 
-            <div>
-              <h4 className="text-white font-semibold mb-4">Follow Us</h4>
-              <div className="flex gap-4">
-                <a href="https://github.com/appmakersatl" className="footer-link" data-testid="footer-github">
-                  <Github className="w-5 h-5" />
-                </a>
-                <a href="https://linkedin.com/company/appmakersatl" className="footer-link" data-testid="footer-linkedin">
-                  <Linkedin className="w-5 h-5" />
-                </a>
-                <a href="https://x.com/appmakersatl" className="footer-link" data-testid="footer-x">
-                  <Globe className="w-5 h-5" />
-                </a>
+              <div>
+                <h4>Follow Us</h4>
+                <div className="footer-social">
+                  <a href="https://github.com/flattapps" className="glass-icon-btn" aria-label="GitHub" data-testid="footer-github">
+                    <Github className="w-5 h-5" />
+                  </a>
+                  <a href="https://linkedin.com/company/flattapps" className="glass-icon-btn" aria-label="LinkedIn" data-testid="footer-linkedin">
+                    <Linkedin className="w-5 h-5" />
+                  </a>
+                  <a href="https://x.com/flattapps" className="glass-icon-btn" aria-label="X" data-testid="footer-x">
+                    <Globe className="w-5 h-5" />
+                  </a>
+                </div>
+              </div>
+
+              <div>
+                <h4>Services</h4>
+                <p>React Native Development</p>
+                <p>iOS App Development</p>
+                <p>Android App Development</p>
+                <p>Mobile App Consulting</p>
               </div>
             </div>
 
-            <div>
-              <h4 className="text-white font-semibold mb-4">Services</h4>
-              <ul className="text-gray-500 space-y-2 text-sm">
-                <li>React Native Development</li>
-                <li>iOS App Development</li>
-                <li>Android App Development</li>
-                <li>Mobile App Consulting</li>
-              </ul>
+            <div className="footer-base">
+              <p>© 2026 Flatt Apps. All rights reserved.</p>
+              <p>Serving clients worldwide</p>
             </div>
           </div>
+        </footer>
+      </main>
 
-          <div className="border-t border-white/5 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
-            <p className="text-gray-600 text-sm">
-              © 2026 AppMakersATL. All rights reserved. Atlanta, Georgia.
-            </p>
-            <p className="text-gray-600 text-sm">
-              Made with ❤️ in Atlanta, GA
-            </p>
-          </div>
-        </div>
-      </footer>
-
-      {/* Sticky Navigation */}
-      <nav className="sticky-nav" data-testid="sticky-nav">
-        {['Services', 'Work', 'Expertise', 'About'].map((item) => (
+      <nav className={`glass tab-bar ${tabsCompact ? 'compact' : ''}`} data-testid="sticky-nav">
+        <motion.span
+          className="tab-lens"
+          animate={{ x: `${Math.max(activeTabIndex, 0) * 100}%` }}
+          transition={{ type: 'spring', stiffness: 320, damping: 30 }}
+        />
+        {tabs.map(({ id, label, icon: Icon }) => (
           <button
-            key={item}
-            onClick={() => scrollToSection(item.toLowerCase())}
-            className={`nav-link text-sm ${activeSection === item.toLowerCase() ? 'active' : ''}`}
-            data-testid={`sticky-nav-${item.toLowerCase()}`}
+            key={id}
+            onClick={() => scrollToSection(id)}
+            className={activeSection === id ? 'active' : ''}
+            aria-label={label}
+            aria-current={activeSection === id ? 'true' : undefined}
+            data-testid={`sticky-nav-${id}`}
           >
-            {item}
+            <Icon className="w-5 h-5" />
+            <span>{label}</span>
           </button>
         ))}
       </nav>
 
-      {/* Discovery Call Modal */}
-      <DiscoveryModal isOpen={showModal} onClose={() => setShowModal(false)} />
+      <DiscoverySheet isOpen={showModal} onClose={() => setShowModal(false)} />
     </div>
+    </MotionConfig>
   );
 }
 
