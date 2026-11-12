@@ -14,8 +14,10 @@ module.exports = {
           500: '#2D2D2D',
         },
         'accent': {
-          purple: '#8B5CF6',
-          light: '#A78BFA',
+          purple: '#A51DF0',
+          light: '#C77DFF',
+          lighter: '#E0B3FF',
+          deep: '#5B0A91',
           blue: '#4F7CFF',
         }
       },
@@ -33,8 +35,8 @@ module.exports = {
           '50%': { transform: 'translateY(-20px)' },
         },
         glow: {
-          '0%': { boxShadow: '0 0 20px rgba(139, 92, 246, 0.3)' },
-          '100%': { boxShadow: '0 0 40px rgba(139, 92, 246, 0.6)' },
+          '0%': { boxShadow: '0 0 20px rgba(165, 29, 240, 0.3)' },
+          '100%': { boxShadow: '0 0 40px rgba(165, 29, 240, 0.6)' },
         }
       }
     },

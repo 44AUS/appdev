@@ -4,11 +4,14 @@
 
 /* Flatt Apps brand and glass tokens */
 :root {
-  --accent: #8B5CF6;
-  --accent-rgb: 139, 92, 246;
-  --accent-light: #B9A5FF;
+  /* Brand purples */
+  --accent: #A51DF0;
+  --accent-rgb: 165, 29, 240;
+  --accent-light: #C77DFF;
+  --accent-lighter: #E0B3FF;
+  --accent-deep: #5B0A91;
   --accent-blue: #4F7CFF;
-  --accent-gradient: linear-gradient(135deg, #9B6DFF 0%, #4F7CFF 100%);
+  --accent-gradient: linear-gradient(135deg, #A51DF0 0%, #5B0A91 100%);
 
   --bg: #06060E;
   --text: #FFFFFF;
@@ -67,7 +70,7 @@ body {
 }
 
 .gradient-text {
-  background: linear-gradient(120deg, #C9B8FF 0%, #8B9DFF 50%, #5F8BFF 100%);
+  background: linear-gradient(120deg, #E0B3FF 0%, #C77DFF 45%, #A51DF0 100%);
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;

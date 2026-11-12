@@ -41,15 +41,22 @@ const ExpoIcon = ({ className }) => (
   <svg viewBox="0 0 256 230" className={className} fill="white"><path fill="#FFF" d="M121.309 84.673c2.094-3.086 4.385-3.478 6.244-3.478c1.86 0 4.957.392 7.051 3.478c16.502 22.667 43.742 67.819 63.835 101.126c13.104 21.72 23.168 38.403 25.233 40.526c7.751 7.97 18.382 3.003 24.559-6.037c6.081-8.9 7.77-15.15 7.77-21.817c0-4.54-88.106-168.4-96.979-182.039C150.49 3.314 147.71 0 133.106 0h-10.93c-14.56 0-16.665 3.314-25.198 16.432C88.106 30.072 0 193.93 0 198.472c0 6.666 1.688 12.916 7.77 21.816c6.177 9.04 16.808 14.007 24.559 6.037c2.065-2.123 12.13-18.806 25.233-40.526c20.093-33.307 47.245-78.46 63.747-101.126"/></svg>
 );
 
-// Flatt Apps logo: an isometric cube built from three stacked layers,
-// one for each app or tech stack we ship. `spread` animates the layers apart.
-const SLAB_OFFSETS = [19, 9.5, 0]; // bottom to top, so upper layers paint over lower ones
+// Flatt Apps logo: three stacked isometric layers, one for each app or tech
+// stack we ship. Drawn to match the app icon; `spread` animates the layers apart.
+const SLAB_OFFSETS = [254, 127, 0]; // bottom to top, so upper layers paint over lower ones
 
-const CubeSlab = ({ offset, gradientId }) => (
+const CubeSlab = ({ offset, gradientId, isTop }) => (
   <>
-    <polygon points={`32,${6 + offset} 54.5,${19 + offset} 32,${32 + offset} 9.5,${19 + offset}`} fill={`url(#${gradientId}-top)`} />
-    <polygon points={`9.5,${19 + offset} 32,${32 + offset} 32,${39 + offset} 9.5,${26 + offset}`} fill={`url(#${gradientId}-left)`} />
-    <polygon points={`54.5,${19 + offset} 32,${32 + offset} 32,${39 + offset} 54.5,${26 + offset}`} fill={`url(#${gradientId}-right)`} />
+    <polygon points={`258,${367 + offset} 512,${513 + offset} 512,${549 + offset} 258,${403 + offset}`} fill={`url(#${gradientId}-left)`} />
+    <polygon points={`766,${367 + offset} 512,${513 + offset} 512,${549 + offset} 766,${403 + offset}`} fill={`url(#${gradientId}-right)`} />
+    <polygon
+      points={`512,${220 + offset} 766,${367 + offset} 512,${513 + offset} 258,${367 + offset}`}
+      fill={`url(#${gradientId}-${isTop ? 'top' : 'face'})`}
+      stroke={isTop ? '#E0B3FF' : '#C77DFF'}
+      strokeOpacity={isTop ? 1 : 0.75}
+      strokeWidth={isTop ? 6 : 5}
+      strokeLinejoin="round"
+    />
   </>
 );
 
@@ -57,28 +64,32 @@ const FlattLogo = ({ className, spread = false }) => {
   const gradientId = `flatt-${useId().replace(/:/g, '')}`;
 
   return (
-    <svg viewBox="0 0 64 64" className={className} role="img" aria-label="Flatt Apps logo">
+    <svg viewBox="209 205 606 606" className={className} overflow="visible" role="img" aria-label="Flatt Apps logo">
       <defs>
         <linearGradient id={`${gradientId}-top`} x1="0" y1="0" x2="1" y2="1">
-          <stop offset="0" stopColor="#DDD6FE" />
-          <stop offset="1" stopColor="#A78BFA" />
+          <stop offset="0" stopColor="#C77DFF" />
+          <stop offset="1" stopColor="#A51DF0" />
         </linearGradient>
-        <linearGradient id={`${gradientId}-left`} x1="0" y1="0" x2="1" y2="1">
-          <stop offset="0" stopColor="#8B5CF6" />
-          <stop offset="1" stopColor="#6D3FE0" />
+        <linearGradient id={`${gradientId}-face`} x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0" stopColor="#A51DF0" />
+          <stop offset="1" stopColor="#5B0A91" />
         </linearGradient>
-        <linearGradient id={`${gradientId}-right`} x1="0" y1="0" x2="1" y2="1">
-          <stop offset="0" stopColor="#4F7CFF" />
-          <stop offset="1" stopColor="#3B5BDB" />
+        <linearGradient id={`${gradientId}-left`} x1="0" y1="0" x2="1" y2="0">
+          <stop offset="0" stopColor="#5B0A91" />
+          <stop offset="1" stopColor="#3A0563" />
+        </linearGradient>
+        <linearGradient id={`${gradientId}-right`} x1="0" y1="0" x2="1" y2="0">
+          <stop offset="0" stopColor="#7A10BF" />
+          <stop offset="1" stopColor="#A51DF0" />
         </linearGradient>
       </defs>
       {SLAB_OFFSETS.map((offset, index) => (
         <motion.g
           key={offset}
-          animate={spread ? { y: [0, (index - 1) * -7, 0] } : undefined}
+          animate={spread ? { y: [0, (index - 1) * -34, 0] } : undefined}
           transition={spread ? { duration: 4, repeat: Infinity, ease: 'easeInOut' } : undefined}
         >
-          <CubeSlab offset={offset} gradientId={gradientId} />
+          <CubeSlab offset={offset} gradientId={gradientId} isTop={offset === 0} />
         </motion.g>
       ))}
     </svg>

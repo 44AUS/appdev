@@ -1,5 +1,11 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
-  <g id="s3"><polygon points="32,25 54.5,38 32,51 9.5,38" fill="#C4B5FD"/><polygon points="9.5,38 32,51 32,58 9.5,45" fill="#7C4DEB"/><polygon points="54.5,38 32,51 32,58 54.5,45" fill="#4569ED"/></g>
-  <g id="s2"><polygon points="32,15.5 54.5,28.5 32,41.5 9.5,28.5" fill="#C4B5FD"/><polygon points="9.5,28.5 32,41.5 32,48.5 9.5,35.5" fill="#7C4DEB"/><polygon points="54.5,28.5 32,41.5 32,48.5 54.5,35.5" fill="#4569ED"/></g>
-  <g id="s1"><polygon points="32,6 54.5,19 32,32 9.5,19" fill="#C4B5FD"/><polygon points="9.5,19 32,32 32,39 9.5,26" fill="#7C4DEB"/><polygon points="54.5,19 32,32 32,39 54.5,26" fill="#4569ED"/></g>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="209 205 606 606">
+  <defs>
+    <linearGradient id="t" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#C77DFF"/><stop offset="1" stop-color="#A51DF0"/></linearGradient>
+    <linearGradient id="f" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#A51DF0"/><stop offset="1" stop-color="#5B0A91"/></linearGradient>
+    <linearGradient id="l" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#5B0A91"/><stop offset="1" stop-color="#3A0563"/></linearGradient>
+    <linearGradient id="r" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#7A10BF"/><stop offset="1" stop-color="#A51DF0"/></linearGradient>
+  </defs>
+  <g id="s3"><polygon points="258,621 512,767 512,803 258,657" fill="url(#l)"/><polygon points="766,621 512,767 512,803 766,657" fill="url(#r)"/><polygon points="512,474 766,621 512,767 258,621" fill="url(#f)" stroke="#C77DFF" stroke-opacity="0.75" stroke-width="10" stroke-linejoin="round"/></g>
+  <g id="s2"><polygon points="258,494 512,640 512,676 258,530" fill="url(#l)"/><polygon points="766,494 512,640 512,676 766,530" fill="url(#r)"/><polygon points="512,347 766,494 512,640 258,494" fill="url(#f)" stroke="#C77DFF" stroke-opacity="0.75" stroke-width="10" stroke-linejoin="round"/></g>
+  <g id="s1"><polygon points="258,367 512,513 512,549 258,403" fill="url(#l)"/><polygon points="766,367 512,513 512,549 766,403" fill="url(#r)"/><polygon points="512,220 766,367 512,513 258,367" fill="url(#t)" stroke="#E0B3FF" stroke-width="10" stroke-linejoin="round"/></g>
 </svg>
