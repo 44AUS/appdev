@@ -148,22 +148,11 @@ const reveal = {
 };
 
 // Background like the MintSlip header video: black fading up into the brand
-// purple, soft light shafts, and film grain. The spheres scroll with the page
-// so the glass panels have something to blur as you move.
+// purple, soft light shafts, and film grain.
 const Ambient = () => (
   <>
     <div className="ambient" aria-hidden="true">
       <span className="ambient-shafts" />
-    </div>
-    <div className="spheres" aria-hidden="true">
-      <span className="sphere sphere-1" />
-      <span className="sphere sphere-2" />
-      <span className="sphere sphere-3" />
-      <span className="sphere sphere-4" />
-      <span className="sphere sphere-5" />
-      <span className="sphere sphere-6" />
-      <span className="halo halo-1" />
-      <span className="halo halo-2" />
     </div>
   </>
 );

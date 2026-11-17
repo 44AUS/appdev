@@ -71,47 +71,6 @@
   100% { transform: translate(0, 0); }
 }
 
-/* Crisp shapes that scroll with the page and pass behind the glass */
-.spheres {
-  position: absolute;
-  inset: 0;
-  z-index: 0;
-  overflow: hidden;
-  pointer-events: none;
-}
-
-.sphere {
-  position: absolute;
-  border-radius: 50%;
-  background: radial-gradient(circle at 32% 28%, #F6E8FF 0%, #E0B3FF 16%, #A51DF0 46%, #5B0A91 80%, #2A0548 100%);
-  box-shadow: 0 30px 80px rgba(var(--accent-rgb), 0.45);
-}
-
-.sphere-1 { top: 15%; left: 3%; width: 150px; height: 150px; }
-.sphere-2 {
-  top: 22%; right: 7%; width: 230px; height: 230px;
-  background: radial-gradient(circle at 32% 28%, #FBF3FF 0%, #E0B3FF 20%, #C77DFF 46%, #7A10BF 80%, #3A0563 100%);
-}
-.sphere-3 { top: 38%; left: 12%; width: 280px; height: 280px; }
-.sphere-4 {
-  top: 52%; right: 12%; width: 170px; height: 170px;
-  background: radial-gradient(circle at 32% 28%, #FBF3FF 0%, #E0B3FF 20%, #C77DFF 46%, #7A10BF 80%, #3A0563 100%);
-}
-.sphere-5 { top: 66%; left: 44%; width: 200px; height: 200px; }
-.sphere-6 {
-  top: 86%; right: 18%; width: 260px; height: 260px;
-  background: radial-gradient(circle at 32% 28%, #FBF3FF 0%, #E0B3FF 20%, #C77DFF 46%, #7A10BF 80%, #3A0563 100%);
-}
-
-.halo {
-  position: absolute;
-  border-radius: 50%;
-  border: 26px solid rgba(224, 179, 255, 0.5);
-}
-
-.halo-1 { top: 31%; right: 26%; width: 240px; height: 240px; }
-.halo-2 { top: 77%; left: 8%; width: 300px; height: 300px; border-color: rgba(199, 125, 255, 0.45); }
-
 /* ---------- Glass ---------- */
 .glass {
   position: relative;
