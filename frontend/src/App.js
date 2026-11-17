@@ -1,11 +1,9 @@
 import React, { useState, useEffect, useRef, useId } from 'react';
-import { motion, AnimatePresence, MotionConfig, useMotionValue, useScroll, useSpring, useTransform } from 'framer-motion';
+import { motion, AnimatePresence, MotionConfig, useScroll, useTransform } from 'framer-motion';
 import {
   ArrowRight,
   Briefcase,
-  CheckCircle2,
   ChevronRight,
-  Code2,
   Cpu,
   ExternalLink,
   Github,
@@ -16,8 +14,6 @@ import {
   Mail,
   MapPin,
   Plus,
-  Rocket,
-  Smartphone,
   Users,
   X,
 } from 'lucide-react';
@@ -25,21 +21,6 @@ import mintslipLogo from './assets/logos/mintslip.png';
 import cinecastLogo from './assets/logos/cinecast.png';
 import urloadLogo from './assets/logos/urload.png';
 import './App.css';
-
-const ReactNativeIcon = ({ className }) => (
-  <svg viewBox="-11.5 -10.23174 23 20.46348" className={className}>
-    <circle cx="0" cy="0" r="2.05" fill="#FFF" />
-    <g stroke="#FFF" strokeWidth="1" fill="none">
-      <ellipse rx="11" ry="4.2" />
-      <ellipse rx="11" ry="4.2" transform="rotate(60)" />
-      <ellipse rx="11" ry="4.2" transform="rotate(120)" />
-    </g>
-  </svg>
-);
-
-const ExpoIcon = ({ className }) => (
-  <svg viewBox="0 0 256 230" className={className} fill="white"><path fill="#FFF" d="M121.309 84.673c2.094-3.086 4.385-3.478 6.244-3.478c1.86 0 4.957.392 7.051 3.478c16.502 22.667 43.742 67.819 63.835 101.126c13.104 21.72 23.168 38.403 25.233 40.526c7.751 7.97 18.382 3.003 24.559-6.037c6.081-8.9 7.77-15.15 7.77-21.817c0-4.54-88.106-168.4-96.979-182.039C150.49 3.314 147.71 0 133.106 0h-10.93c-14.56 0-16.665 3.314-25.198 16.432C88.106 30.072 0 193.93 0 198.472c0 6.666 1.688 12.916 7.77 21.816c6.177 9.04 16.808 14.007 24.559 6.037c2.065-2.123 12.13-18.806 25.233-40.526c20.093-33.307 47.245-78.46 63.747-101.126"/></svg>
-);
 
 // Flatt Apps logo: three stacked isometric layers, one for each app or tech
 // stack we ship. Drawn to match the app icon; `spread` animates the layers apart.
@@ -194,63 +175,6 @@ const Ambient = () => {
   );
 };
 
-const LockNotification = ({ icon: Icon, title, detail, delay }) => (
-  <motion.div
-    className="notif"
-    initial={{ opacity: 0, y: 16, scale: 0.94 }}
-    animate={{ opacity: 1, y: 0, scale: 1 }}
-    transition={{ type: 'spring', stiffness: 160, damping: 18, delay }}
-  >
-    <span className="notif-icon"><Icon className="w-4 h-4" /></span>
-    <span className="notif-text">
-      <strong>{title}</strong>
-      <small>{detail}</small>
-    </span>
-    <time>now</time>
-  </motion.div>
-);
-
-const HeroPhone = ({ rotateX, rotateY }) => (
-  <motion.div className="phone-stage" style={{ rotateX, rotateY }}>
-    <div className="phone">
-      <div className="phone-screen">
-        <span className="phone-island" />
-        <div className="phone-time">
-          <small>{new Date().toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric' })}</small>
-          <strong>9:41</strong>
-        </div>
-        <div className="phone-logo">
-          <FlattLogo className="w-full h-full" spread />
-        </div>
-        <div className="phone-notifs">
-          <LockNotification icon={CheckCircle2} title="Build passed" detail="iOS and Android" delay={0.7} />
-          <LockNotification icon={Rocket} title="Ready for release" detail="App Store, Play Store" delay={1} />
-        </div>
-        <div className="phone-dock">
-          <span><ReactNativeIcon className="w-7 h-7" /></span>
-          <span><ExpoIcon className="w-6 h-6" /></span>
-          <span><Code2 className="w-6 h-6" /></span>
-          <span><Smartphone className="w-6 h-6" /></span>
-        </div>
-      </div>
-    </div>
-    <motion.div
-      className="float-chip float-chip-a"
-      animate={{ y: [0, -10, 0] }}
-      transition={{ duration: 5, repeat: Infinity, ease: 'easeInOut' }}
-    >
-      <strong>10</strong> years
-    </motion.div>
-    <motion.div
-      className="float-chip float-chip-b"
-      animate={{ y: [0, 10, 0] }}
-      transition={{ duration: 6, repeat: Infinity, ease: 'easeInOut', delay: 0.6 }}
-    >
-      <strong>35+</strong> apps
-    </motion.div>
-  </motion.div>
-);
-
 const ServiceCard = ({ service, index, onBook }) => {
   // Written straight to CSS variables so the specular highlight never re-renders React
   const handleMouseMove = (e) => {
@@ -374,18 +298,6 @@ function App() {
     about: useRef(null),
   };
 
-  const pointerX = useMotionValue(0);
-  const pointerY = useMotionValue(0);
-  const spring = { stiffness: 80, damping: 18 };
-  const rotateY = useSpring(useTransform(pointerX, [-0.5, 0.5], [-14, 8]), spring);
-  const rotateX = useSpring(useTransform(pointerY, [-0.5, 0.5], [8, -8]), spring);
-
-  const handleHeroPointer = (e) => {
-    const rect = e.currentTarget.getBoundingClientRect();
-    pointerX.set((e.clientX - rect.left) / rect.width - 0.5);
-    pointerY.set((e.clientY - rect.top) / rect.height - 0.5);
-  };
-
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrentProjectIndex((prev) => (prev + 1) % workInProgress.length);
@@ -450,7 +362,7 @@ function App() {
       </header>
 
       <main className="page">
-        <section ref={sectionsRef.home} className="hero" onMouseMove={handleHeroPointer} data-testid="hero-section">
+        <section ref={sectionsRef.home} className="hero" data-testid="hero-section">
           <motion.div
             className="hero-copy"
             initial={{ opacity: 0, y: 30 }}
@@ -483,15 +395,6 @@ function App() {
                 hello@flattapps.com
               </a>
             </div>
-          </motion.div>
-
-          <motion.div
-            className="hero-device"
-            initial={{ opacity: 0, y: 50, scale: 0.94 }}
-            animate={{ opacity: 1, y: 0, scale: 1 }}
-            transition={{ type: 'spring', stiffness: 70, damping: 16, delay: 0.15 }}
-          >
-            <HeroPhone rotateX={rotateX} rotateY={rotateY} />
           </motion.div>
         </section>
 
