@@ -20,6 +20,7 @@ import {
 import mintslipLogo from './assets/logos/mintslip.png';
 import cinecastLogo from './assets/logos/cinecast.png';
 import urloadLogo from './assets/logos/urload.png';
+import whodatLogo from './assets/logos/whodat.jpg';
 import './App.css';
 
 // Flatt Apps logo: three stacked isometric layers, one for each app or tech
@@ -94,22 +95,23 @@ const Thumb = ({ src, name, className = '' }) => {
 
 const clients = {
   mintslip: { name: 'MintSlip', logo: mintslipLogo },
-  expo: { name: 'Expo', logo: 'https://play-lh.googleusercontent.com/algsmuhitlyCU_Yy3IU7-7KYIhCBwx5UJG4Bln-hygBjjlUVCiGo1y8W5JNqYm9WW3s=w480-h960-rw' },
   cinecast: { name: 'Cinecast', logo: cinecastLogo },
   urload: { name: 'Urload', logo: urloadLogo },
+  whodat: { name: 'WhoDat', logo: whodatLogo },
 };
 
 const workInProgress = [
   { client: clients.mintslip, description: 'Working with MintSlip to build the fastest, and more robust paystub generator.' },
-  { client: clients.expo, description: 'Partnering with Expo to enhance developer experience and build performance improvements.' },
   { client: clients.cinecast, description: 'Building Cinecast, the app that sends video from any site to your TV, from Roku and Fire TV to Chromecast and Apple TV.' },
   { client: clients.urload, description: 'Building Urload, the all-in-one platform for the trucking industry, connecting carriers and brokers in one seamless system.' },
+  { client: clients.whodat, description: 'Building WhoDat, which finds where a face appears across social platforms and public records from a single photo, built for dating safety and identity verification.' },
 ];
 
 const portfolioWork = [
   { client: clients.mintslip, achievement: 'The best Paystub Generator' },
   { client: clients.cinecast, achievement: 'Casts to Roku, Fire TV, Chromecast and more' },
   { client: clients.urload, achievement: 'The smarter load board for carriers and brokers' },
+  { client: clients.whodat, achievement: 'Find anyone from a single photo' },
 ];
 
 const services = [
