@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef, useId } from 'react';
-import { motion, AnimatePresence, MotionConfig, useScroll, useTransform } from 'framer-motion';
+import { motion, AnimatePresence, MotionConfig } from 'framer-motion';
 import {
   ArrowRight,
   Briefcase,
@@ -147,35 +147,26 @@ const reveal = {
   transition: { type: 'spring', stiffness: 120, damping: 20 },
 };
 
-// Colour field behind the glass: fixed aurora plus crisp spheres that scroll
-// with the page, so the blur has something visible to refract as you move.
-const Ambient = () => {
-  const { scrollYProgress } = useScroll();
-  const y = useTransform(scrollYProgress, [0, 1], ['0%', '-18%']);
-
-  return (
-    <>
-      <div className="ambient" aria-hidden="true">
-        <motion.div className="ambient-drift" style={{ y }}>
-          <span className="orb orb-violet" />
-          <span className="orb orb-blue" />
-          <span className="orb orb-indigo" />
-          <span className="orb orb-lilac" />
-        </motion.div>
-      </div>
-      <div className="spheres" aria-hidden="true">
-        <span className="sphere sphere-1" />
-        <span className="sphere sphere-2" />
-        <span className="sphere sphere-3" />
-        <span className="sphere sphere-4" />
-        <span className="sphere sphere-5" />
-        <span className="sphere sphere-6" />
-        <span className="halo halo-1" />
-        <span className="halo halo-2" />
-      </div>
-    </>
-  );
-};
+// Background like the MintSlip header video: black fading up into the brand
+// purple, soft light shafts, and film grain. The spheres scroll with the page
+// so the glass panels have something to blur as you move.
+const Ambient = () => (
+  <>
+    <div className="ambient" aria-hidden="true">
+      <span className="ambient-shafts" />
+    </div>
+    <div className="spheres" aria-hidden="true">
+      <span className="sphere sphere-1" />
+      <span className="sphere sphere-2" />
+      <span className="sphere sphere-3" />
+      <span className="sphere sphere-4" />
+      <span className="sphere sphere-5" />
+      <span className="sphere sphere-6" />
+      <span className="halo halo-1" />
+      <span className="halo halo-2" />
+    </div>
+  </>
+);
 
 const ServiceCard = ({ service, index, onBook }) => {
   // Written straight to CSS variables so the specular highlight never re-renders React
@@ -347,7 +338,7 @@ function App() {
     <MotionConfig reducedMotion="user">
     <div className="app-container">
       <Ambient />
-      <div className="noise-overlay"></div>
+      <div className="grain" aria-hidden="true"></div>
 
       <header className="top-bar-wrap">
         <div className="glass top-bar">
